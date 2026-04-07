@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tether — Stop Running Your Crew From Memory</title>
+  <meta name="description" content="Tether is an AI-powered command center for contractors, cabinet shops, landscapers, and detailers. Punch clock, crew scheduling, job tracking, and an AI assistant — all from your phone." />
+  <link rel="canonical" href="https://tetherapp.work/" />
+  <meta property="og:title" content="Tether — Stop Running Your Crew From Memory" />
+  <meta property="og:description" content="AI-powered scheduling and crew management for mobile trade businesses. Replace the whiteboard and the group text." />
+  <meta property="og:url" content="https://tetherapp.work/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://tetherapp.work/logo.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Tether — Stop Running Your Crew From Memory" />
+  <meta name="twitter:description" content="AI-powered scheduling and crew management for mobile trade businesses." />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* App-matched palette */
+      --blue:        #3B5CF5;
+      --blue-dark:   #2D47D9;
+      --blue-light:  rgba(59,92,245,0.10);
+      --blue-mid:    rgba(59,92,245,0.18);
+      --green:       #22C55E;
+      --green-light: rgba(34,197,94,0.12);
+      --purple:      #6366F1;
+      --purple-light:rgba(99,102,241,0.12);
+      --amber:       #F59E0B;
+      --amber-light: rgba(245,158,11,0.12);
+      --red-light:   rgba(239,68,68,0.10);
+
+      /* Surfaces */
+      --bg:       #EEF1F8;
+      --bg2:      #E6EAF3;
+      --surface:  #FFFFFF;
+      --surface2: #F5F7FC;
+      --border:   rgba(0,0,0,0.07);
+      --border2:  rgba(0,0,0,0.04);
+
+      /* Text */
+      --text:     #1A1F2E;
+      --text2:    #4B5263;
+      --muted:    #8891A4;
+      --label:    #9CA3AF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 58px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .nav-logo-icon {
+      width: 30px;
+      height: 30px;
+      background: var(--blue);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.75rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.25rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text2);
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--blue) !important;
+      color: #fff !important;
+      font-weight: 600 !important;
+      padding: 0.45rem 1rem;
+      border-radius: 8px;
+      font-size: 0.8rem !important;
+      transition: background 0.15s !important;
+    }
+
+    .nav-cta:hover { background: var(--blue-dark) !important; }
+
+    @media (max-width: 600px) {
+      .nav-links li:not(.nav-cta-item) { display: none; }
+    }
+
+    /* ─── SHARED ─── */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border-radius: 100px;
+    }
+
+    .chip-blue   { background: var(--blue-light);   color: var(--blue);   }
+    .chip-green  { background: var(--green-light);  color: #16A34A;       }
+    .chip-purple { background: var(--purple-light); color: var(--purple); }
+    .chip-amber  { background: var(--amber-light);  color: #D97706;       }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 18px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.055);
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ─── HERO ─── */
+    .hero-wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .hero-wrap { grid-template-columns: 1fr; gap: 3rem; padding: 3rem 1.25rem; }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.3rem 0.85rem 0.3rem 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text2);
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    }
+
+    .hero-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: blink 2s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.4; }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--blue);
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--text2);
+      max-width: 460px;
+      margin-bottom: 2rem;
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.85rem 1.5rem;
+      border-radius: 12px;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+      box-shadow: 0 4px 16px rgba(59,92,245,0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(59,92,245,0.35);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--muted);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+
+    .btn-ghost:hover { color: var(--text); }
+
+    .hero-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    /* Phone frame */
+    .phone-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .phone-frame {
+      width: 255px;
+      border-radius: 44px;
+      border: 8px solid #1A1F2E;
+      background: #1A1F2E;
+      overflow: hidden;
+      box-shadow:
+        0 60px 80px rgba(0,0,0,0.18),
+        0 20px 40px rgba(0,0,0,0.12),
+        inset 0 0 0 1px rgba(255,255,255,0.06);
+      position: relative;
+    }
+
+    .phone-notch {
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 24px;
+      background: #1A1F2E;
+      border-radius: 0 0 16px 16px;
+      z-index: 10;
+    }
+
+    .phone-frame img {
+      width: 100%;
+      display: block;
+    }
+
+    /* ─── STATS BAR ─── */
+    .stats-bar {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .stats-bar { grid-template-columns: 1fr; }
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+
+    .stat-value {
+      font-size: 1.9rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-value span { color: var(--blue); }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ─── SECTION ─── */
+    .section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 4.5rem 1.5rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.6rem;
+      line-height: 1.15;
+    }
+
+    .section-header p {
+      font-size: 1rem;
+      color: var(--text2);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ─── PROBLEM ─── */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .problem-card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 18px;
+      padding: 1.75rem;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+    }
+
+    .problem-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      background: var(--surface2);
+    }
+
+    .problem-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+
+    .problem-card p {
+      font-size: 0.875rem;
+      color: var(--text2);
+      line-height: 1.65;
+    }
+
+    /* ─── FEATURES ─── */
+
+    /* Dispatch hero card */
+    .dispatch-card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 22px;
+      padding: 2.5rem;
+      margin-bottom: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dispatch-card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle at top right, var(--purple-light), transparent 70%);
+      pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+      .dispatch-card { grid-template-columns: 1fr; padding: 1.75rem; gap: 1.75rem; }
+    }
+
+    .dispatch-card h3 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.6rem;
+      line-height: 1.2;
+    }
+
+    .dispatch-card p {
+      font-size: 0.9rem;
+      color: var(--text2);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+
+    .dispatch-prompts {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .dispatch-prompt {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.8rem;
+      color: var(--text2);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .dispatch-prompt::before {
+      content: '›';
+      color: var(--purple);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    /* Chat mockup */
+    .chat-mockup {
+      background: var(--bg);
+      border-radius: 16px;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .chat-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .chat-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: var(--purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.75rem;
+    }
+
+    .chat-title {
+      font-weight: 700;
+      font-size: 0.875rem;
+    }
+
+    .chat-sub {
+      font-size: 0.65rem;
+      color: var(--green);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .chat-bubble-user {
+      background: var(--purple);
+      color: #fff;
+      border-radius: 14px 14px 4px 14px;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.82rem;
+      align-self: flex-end;
+      max-width: 85%;
+    }
+
+    .chat-bubble-ai {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px 14px 14px 4px;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.82rem;
+      color: var(--text);
+      max-width: 90%;
+    }
+
+    .chat-input {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.55rem 1rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.25rem;
+    }
+
+    /* Feature grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 18px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.045);
+      transition: box-shadow 0.2s, transform 0.15s;
+    }
+
+    .feature-card:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,0.09);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon-wrap {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .feature-card h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.35rem;
+    }
+
+    .feature-card p {
+      font-size: 0.82rem;
+      color: var(--text2);
+      line-height: 1.65;
+    }
+
+    /* ─── SCREENSHOTS ─── */
+    .screenshots-section {
+      background: linear-gradient(180deg, transparent, var(--bg2) 30%, var(--bg2) 70%, transparent);
+      padding: 4rem 0;
+    }
+
+    .screenshots-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .screenshots-scroll {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      padding: 1rem 0 1.5rem;
+      scrollbar-width: none;
+    }
+
+    .screenshots-scroll::-webkit-scrollbar { display: none; }
+
+    .screenshot-item {
+      flex-shrink: 0;
+      width: 200px;
+    }
+
+    .screenshot-item .phone-frame {
+      width: 200px;
+    }
+
+    .screenshot-label {
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-top: 0.75rem;
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+      position: relative;
+    }
+
+    .step {
+      text-align: center;
+    }
+
+    .step-num {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: 1.1rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+
+    .step h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+
+    .step p {
+      font-size: 0.875rem;
+      color: var(--text2);
+      line-height: 1.65;
+    }
+
+    /* ─── PRICING ─── */
+    .pricing-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 1.75rem 0;
+      justify-content: center;
+    }
+
+    .toggle-label {
+      font-size: 0.875rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .toggle-label.active { color: var(--text); font-weight: 600; }
+
+    .toggle-switch {
+      width: 44px;
+      height: 24px;
+      border-radius: 100px;
+      background: var(--border);
+      border: 1.5px solid var(--border);
+      cursor: pointer;
+      position: relative;
+      transition: background 0.2s;
+    }
+
+    .toggle-switch.annual { background: var(--blue); border-color: var(--blue); }
+
+    .toggle-knob {
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+
+    .toggle-switch.annual .toggle-knob { transform: translateX(20px); }
+
+    .save-badge {
+      background: var(--green-light);
+      color: #15803D;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 100px;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .pricing-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      position: relative;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+      transition: box-shadow 0.2s;
+    }
+
+    .pricing-card.popular {
+      border-color: var(--blue);
+      box-shadow: 0 4px 24px rgba(59,92,245,0.15);
+    }
+
+    .popular-badge {
+      position: absolute;
+      top: -12px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--blue);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .plan-name {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .plan-price {
+      display: flex;
+      align-items: baseline;
+      gap: 0.2rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .price-amount {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .price-period {
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    .plan-desc {
+      font-size: 0.82rem;
+      color: var(--text2);
+      margin: 0.75rem 0 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.6;
+    }
+
+    .plan-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .plan-features li {
+      font-size: 0.875rem;
+      color: var(--text2);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .plan-features li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .plan-cta {
+      display: block;
+      text-align: center;
+      padding: 0.75rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.875rem;
+      transition: all 0.15s;
+    }
+
+    .plan-cta-primary {
+      background: var(--blue);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(59,92,245,0.25);
+    }
+
+    .plan-cta-primary:hover { background: var(--blue-dark); }
+
+    .plan-cta-ghost {
+      background: var(--surface2);
+      color: var(--text2);
+      border: 1.5px solid var(--border);
+    }
+
+    .plan-cta-ghost:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+
+    .pricing-note {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 1.5rem;
+    }
+
+    /* ─── SOCIAL PROOF ─── */
+    .quotes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .quote-card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 18px;
+      padding: 1.75rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+
+    .quote-stars {
+      color: var(--amber);
+      font-size: 0.875rem;
+      margin-bottom: 0.9rem;
+      letter-spacing: 0.05em;
+    }
+
+    .quote-text {
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+
+    .quote-author {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* ─── FAQ ─── */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    }
+
+    .faq-q {
+      padding: 1.1rem 1.4rem;
+      font-weight: 600;
+      font-size: 0.925rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      color: var(--text);
+      transition: color 0.15s;
+      user-select: none;
+    }
+
+    .faq-q:hover { color: var(--blue); }
+
+    .faq-chevron {
+      color: var(--muted);
+      font-size: 0.7rem;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-item.open .faq-q { color: var(--blue); }
+
+    .faq-a {
+      padding: 0 1.4rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.2s;
+      font-size: 0.875rem;
+      color: var(--text2);
+      line-height: 1.7;
+    }
+
+    .faq-item.open .faq-a {
+      max-height: 200px;
+      padding: 0 1.4rem 1.1rem;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      padding: 3rem 1.5rem;
+      max-width: 100%;
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+      max-width: 240px;
+      line-height: 1.6;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-col h5 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .footer-col li a {
+      font-size: 0.875rem;
+      color: var(--text2);
+      transition: color 0.15s;
+    }
+
+    .footer-col li a:hover { color: var(--blue); }
+
+    .footer-bottom {
+      font-size: 0.78rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="logo.png" alt="Tether" style="width:34px;height:34px;border-radius:10px;object-fit:cover;box-shadow:0 2px 8px rgba(0,0,0,0.18);" />
+    <div class="nav-logo-icon" style="display:none;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    </div>
+    Tether
+  </div>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li class="nav-cta-item"><a href="/app/" class="nav-cta" style="background:transparent;color:var(--blue);border:1.5px solid var(--blue);">Web Portal</a></li>
+    <li class="nav-cta-item"><a href="https://play.google.com/store/apps/details?id=com.getorganized.tether" target="_blank" class="nav-cta">Get the App</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero-wrap">
+  <div class="hero">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      Now available on Android
+    </div>
+    <h1>Replace the whiteboard and the <em>group text.</em></h1>
+    <p>Tether is a command center for contractors, cabinet shops, landscapers, and detailers — crew scheduling, time tracking, job management, and real-time visibility. All from your phone.</p>
+    <div class="hero-actions">
+      <a href="https://play.google.com/store/apps/details?id=com.getorganized.tether" target="_blank" class="btn-primary">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.65.19.97.07l12.43-7.18-2.79-2.79-10.61 9.9zm-1.18-20.5v17.48c0 .42.23.78.58.99l10.04-10.04-10.04-10.04c-.35.21-.58.57-.58.99zm20.41 8.64l-2.9-1.68-3.12 3.12 3.12 3.12 2.93-1.69c.84-.48.84-1.6-.03-2.07zm-18.2-10.14l10.61 9.9 2.79-2.79-12.43-7.18c-.32-.12-.67-.1-.97.07z"/></svg>
+        Download on Google Play
+      </a>
+      <a href="#features" class="btn-ghost">See how it works ↓</a>
+      <span class="hero-note">90-day free trial &middot; Plans from $8/mo</span>
+    </div>
+  </div>
+
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <img src="images/screen-today.jpg" alt="Tether Today screen" />
+    </div>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-card">
+    <div class="stat-value"><span>90</span>-day<br/>free trial</div>
+    <div class="stat-label">Full access included. No credit card required to start.</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">Trusted<br/><span>by pros</span></div>
+    <div class="stat-label">Used by real trade crews. Direct feedback shapes every update.</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value"><span>6</span> core<br/>screens</div>
+    <div class="stat-label">Office · Crew · Radar · Today · Jobs · Insights</div>
+  </div>
+</div>
+
+<!-- WEB PORTAL CALLOUT -->
+<div style="max-width:1120px;margin:1.5rem auto 0;padding:0 1.5rem;">
+  <div style="background:linear-gradient(135deg,var(--blue),#6366F1);border-radius:16px;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+    <div style="flex:1;min-width:240px;">
+      <div style="font-size:0.85rem;font-weight:600;color:rgba(255,255,255,0.75);margin-bottom:0.25rem;">Not on Android?</div>
+      <div style="font-size:1.1rem;font-weight:700;color:#fff;line-height:1.4;">Try Tether right in your browser — no download required.</div>
+    </div>
+    <a href="/app/" style="display:inline-flex;align-items:center;gap:0.5rem;background:#fff;color:var(--blue);font-weight:700;font-size:0.9rem;padding:0.7rem 1.5rem;border-radius:10px;text-decoration:none;white-space:nowrap;transition:opacity 0.15s;">
+      Open Web Portal →
+    </a>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- PROBLEM -->
+<div class="section" id="problem">
+  <div class="section-header">
+    <div class="section-label">The Problem</div>
+    <h2>Your crew runs between the shop and the job site. Your tools don't.</h2>
+    <p>Generic apps don't understand the difference between shop time and site time. You need a system built for how trade businesses actually work.</p>
+  </div>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="problem-icon">📲</div>
+      <h3>"Who's where right now?"</h3>
+      <p>You're calling or texting to find out if crew showed up and what job they're on. Every single day.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">🕐</div>
+      <h3>Timecard chaos at week's end</h3>
+      <p>Hours logged on paper, in texts, or from memory. Disputes, missing entries, and payroll headaches every Friday.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">🔁</div>
+      <h3>Shop time and site time are different</h3>
+      <p>A day in the shop building cabinets is nothing like a day on-site doing an install. Your scheduling tool should know the difference.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SAWDUST RULE -->
+<div style="max-width:1120px;margin:0 auto;padding:2rem 1.5rem;">
+  <div style="background:var(--surface);border:1px solid var(--border2);border-radius:18px;padding:2rem 2.5rem;box-shadow:0 2px 16px rgba(0,0,0,0.055);display:flex;align-items:center;gap:2rem;flex-wrap:wrap;">
+    <div style="flex:1;min-width:240px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">Design Philosophy</div>
+      <h3 style="font-size:1.35rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:0.4rem;">The Sawdust Rule</h3>
+      <p style="font-size:0.9rem;color:var(--text2);line-height:1.7;margin:0;">If it takes more than 3 seconds with dirty hands, we don't build it. Every screen is designed for one-handed, on-the-go use — in the truck, on the ladder, between cuts.</p>
+    </div>
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+      <span class="chip chip-blue">One-handed</span>
+      <span class="chip chip-green">Thumb-friendly</span>
+      <span class="chip chip-purple">3-second rule</span>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- FEATURES -->
+<div class="section" id="features">
+  <div class="section-header">
+    <div class="section-label">Features</div>
+    <h2>Everything in one place.<br/>Right from your phone.</h2>
+  </div>
+
+  <!-- Office AI -->
+  <div class="dispatch-card">
+    <div>
+      <div style="margin-bottom:0.75rem;"><span class="chip chip-purple">New · AI-Powered</span></div>
+      <h3>Meet Office — your AI field assistant</h3>
+      <p>Ask plain-English questions about your crew, your jobs, and your day. Office pulls live answers from your actual data — no dashboards to dig through.</p>
+      <div class="dispatch-prompts">
+        <div class="dispatch-prompt">Show everyone's time entries today</div>
+        <div class="dispatch-prompt">Who hasn't clocked out yet?</div>
+        <div class="dispatch-prompt">What jobs are active right now?</div>
+        <div class="dispatch-prompt">How many hours did Marcus log this week?</div>
+      </div>
+    </div>
+    <div class="chat-mockup">
+      <div class="chat-header">
+        <div class="chat-avatar">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+        </div>
+        <div>
+          <div class="chat-title">Office</div>
+          <div class="chat-sub">Responding</div>
+        </div>
+      </div>
+      <div class="chat-bubble-user">Who hasn't clocked out yet?</div>
+      <div class="chat-bubble-ai">Jake and Carlos are still clocked in — Jake at Anderson Kitchen (7h 22m), Carlos at Westside (5h 48m).</div>
+      <div class="chat-bubble-user">How many hours total today?</div>
+      <div class="chat-bubble-ai">Your crew has logged <strong>24h 16m</strong> across 3 jobs today.</div>
+      <div class="chat-input">
+        <span>Ask about your team or schedule...</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon-wrap" style="background:var(--blue-light);">
+        <span style="font-size:1.2rem;">📍</span>
+      </div>
+      <h4>Radar — Live Crew Scheduling</h4>
+      <p>See every crew member's schedule in a live week or month view. Assign jobs, spot gaps, and know who's where without a single call.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap" style="background:var(--green-light);">
+        <span style="font-size:1.2rem;">⏱️</span>
+      </div>
+      <h4>Punch Clock & Timecards</h4>
+      <p>Crew clocks in and out from their phone. Timecards are automatic, accurate, and tied to specific jobs — ready for payroll without the Friday scramble.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap" style="background:var(--amber-light);">
+        <span style="font-size:1.2rem;">📋</span>
+      </div>
+      <h4>Jobs & Task Management</h4>
+      <p>Build jobs with tasks, assign crew, and track progress in real time. Everyone knows what they're doing and where they need to be.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap" style="background:var(--purple-light);">
+        <span style="font-size:1.2rem;">📊</span>
+      </div>
+      <h4>Insights & Efficiency</h4>
+      <p>See hours by job, crew utilization, and productivity trends over time. Make scheduling decisions based on data, not gut feel.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap" style="background:var(--green-light);">
+        <span style="font-size:1.2rem;">🔔</span>
+      </div>
+      <h4>Automated Briefings</h4>
+      <p>Daily briefings, end-of-day summaries, weekly recaps, and quarterly reviews — all auto-generated and delivered on schedule. Toggle each one on or off.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap" style="background:var(--blue-light);">
+        <span style="font-size:1.2rem;">📅</span>
+      </div>
+      <h4>Google Calendar Sync</h4>
+      <p>Subscribe to your Tether schedule directly in Google Calendar, Apple Calendar, or Outlook. Jobs and tasks show up automatically — no manual entry, no double-booking.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SCREENSHOTS -->
+<div class="screenshots-section">
+  <div class="screenshots-inner">
+    <div class="section-header">
+      <div class="section-label">The App</div>
+      <h2>Built for the field, not a boardroom.</h2>
+      <p>Every screen designed for fast, one-handed use on a job site.</p>
+    </div>
+    <div class="screenshots-scroll">
+      <div class="screenshot-item">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <img src="images/screen-today.jpg" alt="Today screen" />
+        </div>
+        <div class="screenshot-label">Today</div>
+      </div>
+      <div class="screenshot-item">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <img src="images/screen-radar-month.jpg" alt="Radar screen" />
+        </div>
+        <div class="screenshot-label">Radar</div>
+      </div>
+      <div class="screenshot-item">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <img src="images/screen-radar-week.jpg" alt="Week view" />
+        </div>
+        <div class="screenshot-label">Week View</div>
+      </div>
+      <div class="screenshot-item">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <img src="images/screen-office.jpg" alt="Office / Office AI" />
+        </div>
+        <div class="screenshot-label">Office · Office AI</div>
+      </div>
+      <div class="screenshot-item">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <img src="images/screen-settings.jpg" alt="Settings" />
+        </div>
+        <div class="screenshot-label">Settings</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- HOW IT WORKS -->
+<div class="section" id="how-it-works">
+  <div class="section-header">
+    <div class="section-label">How It Works</div>
+    <h2>Set up in minutes.<br/>Running by end of day.</h2>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Create your account</h3>
+      <p>Download the app, set up your business profile, and invite your crew. They download the free employee app and they're in.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Build your first job</h3>
+      <p>Add a job, assign crew, set tasks. Takes about two minutes. Your team gets notified automatically.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Run your day from anywhere</h3>
+      <p>Crew clocks in, Radar shows who's where, Office answers your questions. You're in control without being on-site.</p>
+    </div>
+  </div>
+</div>
+
+<!-- EMPLOYEE EXPERIENCE -->
+<div class="section" id="employees">
+  <div class="section-header">
+    <div class="section-label">For Your Crew</div>
+    <h2>"Will my guys actually use it?"</h2>
+    <p>The employee app is built for people who don't want another app. One tap to clock in. That's it.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;max-width:900px;margin:0 auto;">
+    <div class="feature-card" style="text-align:center;">
+      <div class="feature-icon-wrap" style="background:var(--green-light);margin:0 auto 0.75rem;">
+        <span style="font-size:1.2rem;">👆</span>
+      </div>
+      <h4>One-tap punch clock</h4>
+      <p>Open app, tap clock in. Done. No menus, no training, no complaints from the crew.</p>
+    </div>
+    <div class="feature-card" style="text-align:center;">
+      <div class="feature-icon-wrap" style="background:var(--blue-light);margin:0 auto 0.75rem;">
+        <span style="font-size:1.2rem;">📋</span>
+      </div>
+      <h4>Daily task feed</h4>
+      <p>Employees see today's jobs, tasks, and schedule. No guessing, no "where am I going?" texts.</p>
+    </div>
+    <div class="feature-card" style="text-align:center;">
+      <div class="feature-icon-wrap" style="background:var(--purple-light);margin:0 auto 0.75rem;">
+        <span style="font-size:1.2rem;">🆓</span>
+      </div>
+      <h4>Free for your crew</h4>
+      <p>Employees download the app at no cost. You pay for the admin seat — they just show up and punch in.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- PRICING -->
+<div class="section" id="pricing">
+  <div class="section-header">
+    <div class="section-label">Pricing</div>
+    <h2>Simple, honest pricing.</h2>
+    <p>Your crew downloads the app free. You pay only for the admin seat.</p>
+  </div>
+
+  <div class="pricing-toggle">
+    <span class="toggle-label active" id="monthly-label">Monthly</span>
+    <div class="toggle-switch" id="billing-toggle">
+      <div class="toggle-knob"></div>
+    </div>
+    <span class="toggle-label" id="annual-label">Annual</span>
+    <span class="save-badge">Save 20%</span>
+  </div>
+
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="plan-name">Solo</div>
+      <div class="plan-price">
+        <span class="price-amount" id="solo-price">$10</span>
+        <span class="price-period">/mo</span>
+      </div>
+      <div class="plan-desc">For owner-operators running lean. One admin, no employees linked.</div>
+      <ul class="plan-features">
+        <li>1 admin seat</li>
+        <li>Jobs &amp; task management</li>
+        <li>Punch clock (self)</li>
+        <li>Office AI assistant</li>
+        <li>Google Calendar sync</li>
+        <li>Insights dashboard</li>
+      </ul>
+      <a href="https://play.google.com/store/apps/details?id=com.getorganized.tether" target="_blank" class="plan-cta plan-cta-ghost">Get Started</a>
+    </div>
+
+    <div class="pricing-card popular">
+      <div class="popular-badge">Most Popular</div>
+      <div class="plan-name">Crew</div>
+      <div class="plan-price">
+        <span class="price-amount" id="crew-price">$25</span>
+        <span class="price-period">/mo</span>
+      </div>
+      <div class="plan-desc">For small crews up to 5 employees. Full team visibility and time tracking.</div>
+      <ul class="plan-features">
+        <li>1 admin seat</li>
+        <li>Up to 5 employee seats included</li>
+        <li>Radar — live crew scheduling</li>
+        <li>Crew punch clock &amp; timecards</li>
+        <li>Jobs, tasks &amp; scheduling</li>
+        <li>Office AI assistant</li>
+        <li>Google Calendar sync</li>
+        <li>Insights &amp; efficiency metrics</li>
+      </ul>
+      <a href="https://play.google.com/store/apps/details?id=com.getorganized.tether" target="_blank" class="plan-cta plan-cta-primary">Get Started</a>
+    </div>
+
+    <div class="pricing-card">
+      <div class="plan-name">Enterprise</div>
+      <div class="plan-price">
+        <span class="price-amount" id="enterprise-price">$60</span>
+        <span class="price-period">/mo</span>
+      </div>
+      <div class="plan-desc">For growing operations with up to 10 employees and more complex job needs.</div>
+      <ul class="plan-features">
+        <li>1 admin seat</li>
+        <li>Up to 10 employee seats included</li>
+        <li>Everything in Crew</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="https://play.google.com/store/apps/details?id=com.getorganized.tether" target="_blank" class="plan-cta plan-cta-ghost">Get Started</a>
+    </div>
+  </div>
+  <p class="pricing-note">All plans include a <strong>90-day free trial</strong> with full access and up to 2 linked employees &middot; No credit card required</p>
+</div>
+
+<hr class="divider" />
+
+<!-- SOCIAL PROOF -->
+<div class="section" id="reviews">
+  <div class="section-header">
+    <div class="section-label">Early Users</div>
+    <h2>Built for people who actually run crews.</h2>
+  </div>
+  <div class="quotes-grid">
+    <div class="quote-card">
+      <div class="quote-stars">★★★★★</div>
+      <p class="quote-text">"I used to spend the first 30 minutes of every morning just figuring out where everyone was. Now I open Tether and it's right there."</p>
+      <div class="quote-author">— Beta user, general contractor, CA</div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-stars">★★★★★</div>
+      <p class="quote-text">"The punch clock alone saved me hours on payroll. My guys actually use it because it's simple — that's the key."</p>
+      <div class="quote-author">— Beta user, 4-person electrical crew</div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-stars">★★★★★</div>
+      <p class="quote-text">"Office AI is genuinely useful. I asked it to show me who was still on the clock at 6pm and it answered immediately. That used to be three text messages."</p>
+      <div class="quote-author">— Beta user, remodeling contractor</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- FAQ -->
+<div class="section" id="faq">
+  <div class="section-header">
+    <div class="section-label">FAQ</div>
+    <h2>Common questions.</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">
+        Is the app really free for my employees?
+        <span class="faq-chevron">▼</span>
+      </div>
+      <div class="faq-a">Each plan includes employee seats up to the plan limit — Crew includes up to 5, Enterprise up to 10. Your crew downloads the Tether app for free; you're billed based on your plan tier. The 90-day free trial includes full access with up to 2 linked employees.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        What phones does Tether work on?
+        <span class="faq-chevron">▼</span>
+      </div>
+      <div class="faq-a">Tether is currently available on Android. iOS support is in development. Both admin and employee apps are available on the Google Play Store.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        How does Radar scheduling work?
+        <span class="faq-chevron">▼</span>
+      </div>
+      <div class="faq-a">Radar shows a week or month view of your crew's scheduled jobs. You can see who's assigned to what, spot scheduling gaps, and add new assignments directly from the calendar view.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        Can I export timecard data for payroll?
+        <span class="faq-chevron">▼</span>
+      </div>
+      <div class="faq-a">Yes. Time entries are stored per employee per job and can be exported directly from the Timecard screen as Excel (.xlsx), CSV, or PDF — ready for payroll processing.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        What trades is Tether designed for?
+        <span class="faq-chevron">▼</span>
+      </div>
+      <div class="faq-a">Tether works for any business that manages a mobile field crew — general contractors, electricians, plumbers, landscapers, HVAC, painting, and more. If you're running people across job sites, Tether is built for you.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <img src="logo.png" alt="Tether" style="width:34px;height:34px;border-radius:10px;object-fit:cover;box-shadow:0 2px 8px rgba(0,0,0,0.18);" />
+          Tether
+        </div>
+        <p>Stop running your crew from memory. Built for tradespeople and small crew operators.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h5>Product</h5>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="https://play.google.com/store/apps/details?id=com.getorganized.tether" target="_blank">Download</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="mailto:terry.tetherapp@gmail.com">Support</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="data-deletion.html">Data Deletion</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 Tether. Built for the trades.</div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Pricing toggle
+    let isAnnual = false;
+    const prices = {
+      monthly: { solo: '$10', crew: '$25', enterprise: '$60' },
+      annual:  { solo: '$8',  crew: '$20', enterprise: '$50' }
+    };
+
+    const billingToggle = document.getElementById('billing-toggle');
+    if (billingToggle) {
+      billingToggle.addEventListener('click', function () {
+        isAnnual = !isAnnual;
+        document.getElementById('monthly-label').classList.toggle('active', !isAnnual);
+        document.getElementById('annual-label').classList.toggle('active', isAnnual);
+        billingToggle.classList.toggle('annual', isAnnual);
+        const p = isAnnual ? prices.annual : prices.monthly;
+        document.getElementById('solo-price').textContent = p.solo;
+        document.getElementById('crew-price').textContent = p.crew;
+        document.getElementById('enterprise-price').textContent = p.enterprise;
+      });
+    }
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-q').forEach(function (el) {
+      el.addEventListener('click', function () {
+        el.parentElement.classList.toggle('open');
+      });
+    });
+  });
+</script>
+</body>
+</html>

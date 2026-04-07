@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Deletion — Tether</title>
+  <meta name="description" content="Request deletion of your Tether account and associated data." />
+  <link rel="canonical" href="https://tetherapp.work/data-deletion.html" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:       #3B5CF5;
+      --blue-dark:  #2D47D9;
+      --blue-light: rgba(59,92,245,0.10);
+      --green:      #22C55E;
+      --green-light:rgba(34,197,94,0.12);
+      --red:        #EF4444;
+      --red-light:  rgba(239,68,68,0.08);
+      --bg:         #EEF1F8;
+      --surface:    #FFFFFF;
+      --surface2:   #F5F7FC;
+      --border:     rgba(0,0,0,0.07);
+      --border2:    rgba(0,0,0,0.04);
+      --text:       #1A1F2E;
+      --text2:      #4B5263;
+      --muted:      #8891A4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 58px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+
+    .nav-back {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text2);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.15s;
+    }
+
+    .nav-back:hover { color: var(--text); text-decoration: none; }
+
+    /* LAYOUT */
+    .page-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 5rem;
+    }
+
+    .page-header {
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-header .label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .page-header h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header .meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* CONTENT */
+    .policy-body {
+      display: flex;
+      flex-direction: column;
+      gap: 2.25rem;
+    }
+
+    .policy-section h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .policy-section p {
+      font-size: 0.925rem;
+      color: var(--text2);
+      line-height: 1.75;
+      margin-bottom: 0.75rem;
+    }
+
+    .policy-section p:last-child { margin-bottom: 0; }
+
+    .policy-section ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      margin-top: 0.5rem;
+    }
+
+    .policy-section ul li {
+      font-size: 0.925rem;
+      color: var(--text2);
+      line-height: 1.65;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .policy-section ul li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    /* Steps */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .step-row {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: 0.85rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .step-content h4 {
+      font-size: 0.925rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .step-content p {
+      font-size: 0.875rem;
+      color: var(--text2);
+      margin: 0;
+    }
+
+    /* CTA card */
+    .cta-card {
+      background: var(--surface);
+      border: 1.5px solid var(--blue);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(59,92,245,0.10);
+      text-align: center;
+    }
+
+    .cta-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .cta-card p {
+      font-size: 0.875rem;
+      color: var(--text2);
+      margin-bottom: 1.25rem;
+    }
+
+    .btn-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 10px;
+      transition: background 0.15s;
+      box-shadow: 0 4px 14px rgba(59,92,245,0.25);
+      text-decoration: none;
+    }
+
+    .btn-email:hover { background: var(--blue-dark); text-decoration: none; }
+
+    /* Info box */
+    .info-box {
+      background: var(--green-light);
+      border: 1px solid rgba(34,197,94,0.2);
+      border-radius: 12px;
+      padding: 1.1rem 1.4rem;
+      margin-top: 0.75rem;
+    }
+
+    .info-box p {
+      font-size: 0.875rem;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .warn-box {
+      background: var(--red-light);
+      border: 1px solid rgba(239,68,68,0.15);
+      border-radius: 12px;
+      padding: 1.1rem 1.4rem;
+      margin-top: 0.75rem;
+    }
+
+    .warn-box p {
+      font-size: 0.875rem;
+      color: var(--text);
+      margin: 0;
+    }
+
+    /* FOOTER */
+    .page-footer {
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      padding: 2rem 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .page-footer-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .page-footer p {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .page-footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .page-footer-links a {
+      font-size: 0.8rem;
+      color: var(--muted);
+      transition: color 0.15s;
+      text-decoration: none;
+    }
+
+    .page-footer-links a:hover { color: var(--blue); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="tether-site.html" class="nav-logo">
+    <img src="logo.png" alt="Tether" />
+    Tether
+  </a>
+  <a href="tether-site.html" class="nav-back">← Back to home</a>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-header">
+    <div class="label">Legal</div>
+    <h1>Data Deletion Policy</h1>
+    <p class="meta">Effective date: January 1, 2025 &nbsp;·&nbsp; Last updated: March 2026</p>
+  </div>
+
+  <div class="policy-body">
+
+    <div class="policy-section">
+      <h2>Your right to delete your data</h2>
+      <p>You have the right to request deletion of your personal data from Tether at any time. This includes your account information, time entries, job history, crew data, and any other information associated with your account.</p>
+      <p>We will process all deletion requests within <strong>30 days</strong> of receipt and confirm completion via email.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>How to request deletion</h2>
+      <div class="steps">
+        <div class="step-row">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Send an email request</h4>
+            <p>Email us at <a href="mailto:terry.tetherapp@gmail.com">terry.tetherapp@gmail.com</a> with the subject line: <strong>"Data Deletion Request"</strong></p>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Include your account details</h4>
+            <p>Provide the email address associated with your Tether account so we can locate and verify your data.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>We confirm and process</h4>
+            <p>We'll confirm receipt within 2 business days and complete the deletion within 30 days, sending a final confirmation when done.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2>Request deletion now</h2>
+      <div class="cta-card">
+        <h3>Ready to delete your account?</h3>
+        <p>Send us an email and we'll take care of the rest. We aim to respond within 2 business days.</p>
+        <a href="mailto:terry.tetherapp@gmail.com?subject=Data%20Deletion%20Request&body=Hi%2C%20I%20would%20like%20to%20request%20deletion%20of%20my%20Tether%20account%20and%20all%20associated%20data.%0A%0AAccount%20email%3A%20" class="btn-email">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email a Deletion Request
+        </a>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2>What gets deleted</h2>
+      <p>Upon a completed deletion request, we will remove:</p>
+      <ul>
+        <li>Your account credentials and profile information</li>
+        <li>All time entries and punch clock history associated with your account</li>
+        <li>Job and task data you created</li>
+        <li>Crew member associations and linked employee data</li>
+        <li>Office AI conversation history</li>
+        <li>Location history collected during work sessions</li>
+        <li>Subscription and billing information (payment records are handled by our payment processor per their policies)</li>
+      </ul>
+      <div class="info-box">
+        <p>Deleting an admin account will also remove all associated employee accounts and data linked to that business. Employees will be notified where possible.</p>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2>What may be retained</h2>
+      <p>In limited cases, we may retain certain data after a deletion request:</p>
+      <ul>
+        <li>Anonymized or aggregated data that cannot be linked back to you personally</li>
+        <li>Records required by law or regulation (e.g. financial records for tax purposes)</li>
+        <li>Data needed to resolve an active dispute or enforce an agreement</li>
+        <li>Backup copies, which are purged on a rolling 90-day cycle</li>
+      </ul>
+      <div class="warn-box">
+        <p>Account deletion is permanent and cannot be undone. We recommend exporting any data you wish to keep before submitting a deletion request.</p>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2>Employee accounts</h2>
+      <p>If you are an employee (non-admin) user and wish to delete your data, you can:</p>
+      <ul>
+        <li>Contact your admin to remove your account from their workspace</li>
+        <li>Email us directly at <a href="mailto:terry.tetherapp@gmail.com">terry.tetherapp@gmail.com</a> — we will coordinate with the account admin and process your request within 30 days</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>Questions</h2>
+      <p>If you have any questions about this policy or your data, contact us at <a href="mailto:terry.tetherapp@gmail.com">terry.tetherapp@gmail.com</a>. For a full overview of how we handle your data, see our <a href="privacy.html">Privacy Policy</a>.</p>
+    </div>
+
+  </div>
+</div>
+
+<footer class="page-footer">
+  <div class="page-footer-inner">
+    <p>© 2025 Tether. Built for the trades.</p>
+    <div class="page-footer-links">
+      <a href="tether-site.html">Home</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="mailto:terry.tetherapp@gmail.com">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

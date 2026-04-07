@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service — Tether</title>
+  <meta name="description" content="Tether's terms of service — the rules and conditions for using the Tether app." />
+  <link rel="canonical" href="https://tetherapp.work/terms.html" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:       #3B5CF5;
+      --blue-dark:  #2D47D9;
+      --blue-light: rgba(59,92,245,0.10);
+      --green:      #22C55E;
+      --bg:         #EEF1F8;
+      --surface:    #FFFFFF;
+      --surface2:   #F5F7FC;
+      --border:     rgba(0,0,0,0.07);
+      --border2:    rgba(0,0,0,0.04);
+      --text:       #1A1F2E;
+      --text2:      #4B5263;
+      --muted:      #8891A4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 58px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+
+    .nav-back {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text2);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.15s;
+    }
+
+    .nav-back:hover { color: var(--text); text-decoration: none; }
+
+    /* LAYOUT */
+    .page-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 5rem;
+    }
+
+    .page-header {
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-header .label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .page-header h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header .meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* CONTENT */
+    .policy-body {
+      display: flex;
+      flex-direction: column;
+      gap: 2.25rem;
+    }
+
+    .policy-section h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .policy-section p {
+      font-size: 0.925rem;
+      color: var(--text2);
+      line-height: 1.75;
+      margin-bottom: 0.75rem;
+    }
+
+    .policy-section p:last-child { margin-bottom: 0; }
+
+    .policy-section ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      margin-top: 0.5rem;
+    }
+
+    .policy-section ul li {
+      font-size: 0.925rem;
+      color: var(--text2);
+      line-height: 1.65;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .policy-section ul li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .highlight-box {
+      background: var(--blue-light);
+      border: 1px solid rgba(59,92,245,0.15);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .highlight-box p {
+      font-size: 0.875rem;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      margin-top: 0.75rem;
+    }
+
+    .contact-card p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text2);
+    }
+
+    .contact-card a { font-weight: 600; }
+
+    /* FOOTER */
+    .page-footer {
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      padding: 2rem 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .page-footer-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .page-footer p {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .page-footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .page-footer-links a {
+      font-size: 0.8rem;
+      color: var(--muted);
+      transition: color 0.15s;
+      text-decoration: none;
+    }
+
+    .page-footer-links a:hover { color: var(--blue); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="Tether" />
+    Tether
+  </a>
+  <a href="index.html" class="nav-back">← Back to home</a>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-header">
+    <div class="label">Legal</div>
+    <h1>Terms of Service</h1>
+    <p class="meta">Effective date: January 1, 2025 &nbsp;·&nbsp; Last updated: March 2026</p>
+  </div>
+
+  <div class="policy-body">
+
+    <div class="policy-section">
+      <h2>Agreement to Terms</h2>
+      <p>By downloading, installing, or using the Tether mobile application ("the App"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the App.</p>
+      <p>These Terms apply to all users, including business owners (admins) and employees (crew members) who access the App through an employer's account.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Who Can Use Tether</h2>
+      <p>You must be at least 18 years old to create an admin account or use Tether as a business owner. By using the App you confirm that you meet this requirement.</p>
+      <p>Employee accounts are created at the direction of a business owner. If you are an employee using Tether, your use is subject to these Terms and any policies set by your employer.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Your Account</h2>
+      <p>You are responsible for maintaining the confidentiality of your account credentials. You agree to:</p>
+      <ul>
+        <li>Provide accurate and complete information when creating your account</li>
+        <li>Keep your login credentials secure and not share them with others</li>
+        <li>Notify us immediately at <a href="mailto:terry.tetherapp@gmail.com">terry.tetherapp@gmail.com</a> if you suspect unauthorized access to your account</li>
+        <li>Accept responsibility for all activity that occurs under your account</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>Subscriptions and Billing</h2>
+      <p>Tether is offered on a subscription basis. By selecting a paid plan, you agree to pay the applicable fees:</p>
+      <ul>
+        <li><strong>Solo — $10/month</strong> (or $8/month billed annually): One admin seat, no linked employees</li>
+        <li><strong>Crew — $25/month</strong> (or $20/month billed annually): Up to 5 employee seats included</li>
+        <li><strong>Enterprise — $60/month</strong> (or $50/month billed annually): Up to 10 employee seats included</li>
+      </ul>
+      <p>All plans include a <strong>90-day free trial</strong> with full access and up to 2 linked employees. No credit card is required to start your trial.</p>
+      <p>Subscriptions auto-renew at the end of each billing period. You may cancel at any time. Cancellation takes effect at the end of your current billing period — no refunds are issued for partial periods.</p>
+      <p>We reserve the right to change pricing with at least 30 days' notice. Continued use after a price change takes effect constitutes acceptance of the new pricing.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Employee Accounts</h2>
+      <p>Employee app access is free for crew members linked to an admin account. As an admin, you are responsible for:</p>
+      <ul>
+        <li>Ensuring employees are informed about the app's data collection practices, including location tracking while clocked in</li>
+        <li>Obtaining any consent required under applicable employment laws in your jurisdiction</li>
+        <li>Managing employee access and removing accounts when employment ends</li>
+      </ul>
+      <div class="highlight-box">
+        <p>Location data is only collected from employees while they are actively clocked in. Employees are not tracked outside of active work sessions.</p>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2>Acceptable Use</h2>
+      <p>You agree to use Tether only for lawful purposes and in accordance with these Terms. You agree not to:</p>
+      <ul>
+        <li>Use the App in any way that violates applicable federal, state, or local laws or regulations</li>
+        <li>Misrepresent your identity or business affiliation</li>
+        <li>Attempt to gain unauthorized access to any part of the App or its related systems</li>
+        <li>Use the App to harass, threaten, or harm any person</li>
+        <li>Reverse engineer, decompile, or attempt to extract the source code of the App</li>
+        <li>Use automated tools to scrape, crawl, or extract data from the App</li>
+        <li>Interfere with or disrupt the integrity or performance of the App</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>Your Data</h2>
+      <p>You retain ownership of all business data, job records, and employee information you enter into Tether. By using the App, you grant us a limited license to store, process, and display that data solely for the purpose of providing the service to you.</p>
+      <p>We do not sell your data. For full details on how we handle your information, see our <a href="privacy.html">Privacy Policy</a>.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Intellectual Property</h2>
+      <p>The Tether app, including its design, code, branding, and content, is owned by Tether and protected by applicable intellectual property laws. These Terms do not grant you any right to use Tether's trademarks, logos, or branding without prior written permission.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Availability and Changes</h2>
+      <p>We strive to keep Tether available and running smoothly, but we do not guarantee uninterrupted access. We may modify, suspend, or discontinue features or the App itself at any time, with or without notice.</p>
+      <p>We will make reasonable efforts to notify users of significant changes that affect core functionality or pricing.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Disclaimer of Warranties</h2>
+      <p>Tether is provided "as is" and "as available" without warranties of any kind, either express or implied. We do not warrant that the App will be error-free, secure, or continuously available. Your use of the App is at your own risk.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Limitation of Liability</h2>
+      <p>To the fullest extent permitted by law, Tether and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the App — including but not limited to loss of data, loss of profits, or business interruption — even if we have been advised of the possibility of such damages.</p>
+      <p>Our total liability to you for any claim arising from your use of the App shall not exceed the amount you paid us in the 3 months preceding the claim.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Termination</h2>
+      <p>You may stop using Tether and delete your account at any time. We reserve the right to suspend or terminate your access if you violate these Terms, engage in fraudulent activity, or use the App in a way that harms other users or the service.</p>
+      <p>Upon termination, your right to use the App ceases immediately. Data deletion follows our <a href="data-deletion.html">Data Deletion Policy</a>.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Governing Law</h2>
+      <p>These Terms are governed by the laws of the State of California, without regard to its conflict of law provisions. Any disputes arising from these Terms or your use of the App shall be resolved in the courts located in California.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Changes to These Terms</h2>
+      <p>We may update these Terms from time to time. When we make material changes, we will notify you via the App or by email. The effective date at the top of this page reflects the most recent update. Continued use of the App after changes take effect constitutes acceptance of the revised Terms.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Contact Us</h2>
+      <p>Questions about these Terms? Reach out:</p>
+      <div class="contact-card">
+        <p><strong>Tether App</strong><br />
+        Email: <a href="mailto:terry.tetherapp@gmail.com">terry.tetherapp@gmail.com</a><br />
+        We aim to respond to all inquiries within 5 business days.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="page-footer">
+  <div class="page-footer-inner">
+    <p>© 2025 Tether. Built for the trades.</p>
+    <div class="page-footer-links">
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="data-deletion.html">Data Deletion</a>
+      <a href="mailto:terry.tetherapp@gmail.com">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

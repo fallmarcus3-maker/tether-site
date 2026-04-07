@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Tether</title>
+  <meta name="description" content="Tether's privacy policy — how we collect, use, and protect your data." />
+  <link rel="canonical" href="https://tetherapp.work/privacy.html" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:       #3B5CF5;
+      --blue-dark:  #2D47D9;
+      --blue-light: rgba(59,92,245,0.10);
+      --green:      #22C55E;
+      --bg:         #EEF1F8;
+      --surface:    #FFFFFF;
+      --surface2:   #F5F7FC;
+      --border:     rgba(0,0,0,0.07);
+      --border2:    rgba(0,0,0,0.04);
+      --text:       #1A1F2E;
+      --text2:      #4B5263;
+      --muted:      #8891A4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 58px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+
+    .nav-logo-fallback {
+      width: 30px;
+      height: 30px;
+      background: var(--blue);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.75rem;
+    }
+
+    .nav-back {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text2);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.15s;
+    }
+
+    .nav-back:hover { color: var(--text); text-decoration: none; }
+
+    /* LAYOUT */
+    .page-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 5rem;
+    }
+
+    .page-header {
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-header .label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .page-header h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header .meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* CONTENT */
+    .policy-body {
+      display: flex;
+      flex-direction: column;
+      gap: 2.25rem;
+    }
+
+    .policy-section h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .policy-section p {
+      font-size: 0.925rem;
+      color: var(--text2);
+      line-height: 1.75;
+      margin-bottom: 0.75rem;
+    }
+
+    .policy-section p:last-child { margin-bottom: 0; }
+
+    .policy-section ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      margin-top: 0.5rem;
+    }
+
+    .policy-section ul li {
+      font-size: 0.925rem;
+      color: var(--text2);
+      line-height: 1.65;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .policy-section ul li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .highlight-box {
+      background: var(--blue-light);
+      border: 1px solid rgba(59,92,245,0.15);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .highlight-box p {
+      font-size: 0.875rem;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      margin-top: 0.75rem;
+    }
+
+    .contact-card p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text2);
+    }
+
+    .contact-card a {
+      font-weight: 600;
+    }
+
+    /* FOOTER */
+    .page-footer {
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      padding: 2rem 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .page-footer-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .page-footer p {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .page-footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .page-footer-links a {
+      font-size: 0.8rem;
+      color: var(--muted);
+      transition: color 0.15s;
+      text-decoration: none;
+    }
+
+    .page-footer-links a:hover { color: var(--blue); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="tether-site.html" class="nav-logo">
+    <img src="logo.png" alt="Tether" />
+    Tether
+  </a>
+  <a href="tether-site.html" class="nav-back">← Back to home</a>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-header">
+    <div class="label">Legal</div>
+    <h1>Privacy Policy</h1>
+    <p class="meta">Effective date: January 1, 2025 &nbsp;·&nbsp; Last updated: March 2026</p>
+  </div>
+
+  <div class="policy-body">
+
+    <div class="policy-section">
+      <h2>Overview</h2>
+      <p>Tether ("we", "our", or "us") is a mobile team management application built for tradespeople and small crew operators. This Privacy Policy explains what information we collect, how we use it, and your rights regarding your data.</p>
+      <p>By using Tether, you agree to the practices described in this policy. If you have questions, contact us at <a href="mailto:terry.tetherapp@gmail.com">terry.tetherapp@gmail.com</a>.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Information We Collect</h2>
+      <p>We collect information necessary to provide the core functionality of the app:</p>
+      <ul>
+        <li><strong>Account information:</strong> Name and email address provided at registration</li>
+        <li><strong>Business information:</strong> Business name and profile details you provide</li>
+        <li><strong>Location data:</strong> GPS location when crew members are clocked in and the Radar feature is active. Location is not collected when employees are off the clock.</li>
+        <li><strong>Time and attendance data:</strong> Clock-in/out times, job assignments, and hours worked</li>
+        <li><strong>Job and task data:</strong> Job names, task descriptions, assignments, and completion status you create in the app</li>
+        <li><strong>Office AI interactions:</strong> Queries submitted to the Office AI assistant and the responses generated</li>
+        <li><strong>Device information:</strong> Device type, operating system version, and app version for support and performance purposes</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>How We Use Your Information</h2>
+      <p>We use the information we collect to:</p>
+      <ul>
+        <li>Provide, operate, and improve the Tether app and its features</li>
+        <li>Generate automated briefings, summaries, and reports you have enabled</li>
+        <li>Power the Office AI assistant's responses about your crew and schedule</li>
+        <li>Process and manage your subscription</li>
+        <li>Send service-related notifications and updates</li>
+        <li>Respond to your support requests</li>
+        <li>Maintain the security and integrity of the platform</li>
+      </ul>
+      <p>We do not sell your personal information to third parties.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Location Data</h2>
+      <p>Location data is a core part of the Radar feature. Here is exactly how it works:</p>
+      <ul>
+        <li>Location is only collected from employees while they are actively clocked in</li>
+        <li>Location collection stops when an employee clocks out</li>
+        <li>Location data is visible to the admin account linked to that employee</li>
+        <li>Employees are informed that location is shared while clocked in</li>
+      </ul>
+      <div class="highlight-box">
+        <p>Tether does not track employee location outside of active work sessions. Location data is used solely for crew visibility within your business account.</p>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2>Data Sharing</h2>
+      <p>We may share your information in the following limited circumstances:</p>
+      <ul>
+        <li><strong>Service providers:</strong> Third-party vendors who help us operate the app (cloud hosting, analytics, payment processing). These providers are contractually bound to protect your data.</li>
+        <li><strong>Google services:</strong> We use Google infrastructure for authentication and cloud services. Google's privacy policy applies to their handling of data.</li>
+        <li><strong>Legal requirements:</strong> If required by law, court order, or to protect the rights and safety of users or the public.</li>
+        <li><strong>Business transfers:</strong> In the event of a merger, acquisition, or sale of assets, user data may be transferred. We will notify users before any such transfer.</li>
+      </ul>
+      <p>We do not share your data with advertisers or data brokers.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Data Retention</h2>
+      <p>We retain your data for as long as your account is active or as needed to provide services. If you delete your account, we will delete your personal data within 30 days, except where retention is required by law or legitimate business purposes (such as resolving disputes or complying with legal obligations).</p>
+      <p>Time entry and job history data may be retained in anonymized or aggregated form for service improvement purposes.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Your Rights</h2>
+      <p>You have the right to:</p>
+      <ul>
+        <li>Access the personal data we hold about you</li>
+        <li>Request correction of inaccurate data</li>
+        <li>Request deletion of your account and associated data</li>
+        <li>Withdraw consent for location sharing (by clocking out or disabling location permissions)</li>
+        <li>Export your data in a portable format</li>
+      </ul>
+      <p>To exercise any of these rights, contact us at <a href="mailto:terry.tetherapp@gmail.com">terry.tetherapp@gmail.com</a>. For data deletion requests, see our <a href="data-deletion.html">Data Deletion Policy</a>.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Children's Privacy</h2>
+      <p>Tether is not intended for use by individuals under the age of 18. We do not knowingly collect personal information from children. If we become aware that a child under 18 has provided us with personal information, we will delete it promptly.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Security</h2>
+      <p>We implement industry-standard security measures to protect your information, including encrypted data transmission (HTTPS/TLS), secure cloud storage, and access controls. No method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. When we make material changes, we will notify users via the app or email. The effective date at the top of this page reflects the most recent update. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Contact Us</h2>
+      <p>If you have questions, concerns, or requests regarding this Privacy Policy or your data:</p>
+      <div class="contact-card">
+        <p><strong>Tether App</strong><br />
+        Email: <a href="mailto:terry.tetherapp@gmail.com">terry.tetherapp@gmail.com</a><br />
+        We aim to respond to all privacy inquiries within 5 business days.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="page-footer">
+  <div class="page-footer-inner">
+    <p>© 2025 Tether. Built for the trades.</p>
+    <div class="page-footer-links">
+      <a href="tether-site.html">Home</a>
+      <a href="data-deletion.html">Data Deletion</a>
+      <a href="mailto:terry.tetherapp@gmail.com">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

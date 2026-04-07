@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head><title>Convert app_icon.svg → PNG</title></head>
+<body style="background:#111;color:#fff;font-family:sans-serif;padding:40px;text-align:center">
+  <h2>Tether Icon Converter</h2>
+  <p>Click the button to download <strong>app_icon.png</strong> at 1024×1024.</p>
+  <button id="btn" style="padding:16px 32px;font-size:18px;cursor:pointer;border-radius:8px;background:#3AAFFF;border:none;color:#000;font-weight:bold">
+    Download app_icon.png
+  </button>
+  <br><br>
+  <canvas id="c" width="1024" height="1024" style="border:1px solid #333;max-width:256px;max-height:256px"></canvas>
+
+  <script>
+    const svgText = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0C1219"/>
+      <stop offset="35%" stop-color="#132030"/>
+      <stop offset="65%" stop-color="#1A2A3C"/>
+      <stop offset="100%" stop-color="#0F1923"/>
+    </linearGradient>
+    <radialGradient id="centerGlow" cx="50%" cy="48%" r="42%">
+      <stop offset="0%" stop-color="#1B3A55" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#0F1923" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="glowStrong" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="strandGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <linearGradient id="blueH" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1B8FE0" stop-opacity="0.3"/>
+      <stop offset="25%" stop-color="#3AAFFF"/>
+      <stop offset="75%" stop-color="#3AAFFF"/>
+      <stop offset="100%" stop-color="#1B8FE0" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="blueV" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1B8FE0" stop-opacity="0.3"/>
+      <stop offset="20%" stop-color="#3AAFFF"/>
+      <stop offset="80%" stop-color="#3AAFFF"/>
+      <stop offset="100%" stop-color="#1B8FE0" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="tealS" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0D6B5E" stop-opacity="0.2"/>
+      <stop offset="40%" stop-color="#2DD4A8" stop-opacity="0.7"/>
+      <stop offset="60%" stop-color="#2DD4A8" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#0D6B5E" stop-opacity="0.2"/>
+    </linearGradient>
+    <linearGradient id="amberS" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B6914" stop-opacity="0.2"/>
+      <stop offset="40%" stop-color="#D4A843" stop-opacity="0.6"/>
+      <stop offset="60%" stop-color="#D4A843" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#8B6914" stop-opacity="0.2"/>
+    </linearGradient>
+    <radialGradient id="nodeG" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="40%" stop-color="#3AAFFF" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#3AAFFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="nodeGreen" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#2DD4A8" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#2DD4A8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1024" height="1024" fill="url(#bgGrad)"/>
+  <rect width="1024" height="1024" fill="url(#centerGlow)"/>
+  <g transform="translate(512, 512) scale(2.0) translate(-256, -260)">
+    <path d="M 70,115 C 130,103 180,138 256,126 C 332,114 380,105 442,117" fill="none" stroke="url(#blueH)" stroke-width="6" stroke-linecap="round" filter="url(#strandGlow)" opacity="0.95"/>
+    <path d="M 65,137 C 140,149 195,108 256,126 C 317,144 370,147 445,135" fill="none" stroke="url(#blueH)" stroke-width="5" stroke-linecap="round" filter="url(#strandGlow)" opacity="0.85"/>
+    <path d="M 80,125 C 150,116 200,140 256,126 C 312,112 360,132 430,120" fill="none" stroke="url(#blueH)" stroke-width="4" stroke-linecap="round" filter="url(#strandGlow)" opacity="0.7"/>
+    <path d="M 55,106 C 120,150 190,100 256,126 C 322,152 390,95 455,142" fill="none" stroke="url(#tealS)" stroke-width="3" stroke-linecap="round" filter="url(#strandGlow)" opacity="0.6"/>
+    <path d="M 90,144 C 145,108 200,144 256,126 C 312,108 365,148 420,110" fill="none" stroke="url(#amberS)" stroke-width="2.5" stroke-linecap="round" filter="url(#strandGlow)" opacity="0.45"/>
+    <path d="M 249,126 C 243,190 268,250 260,310 C 252,370 264,400 256,440" fill="none" stroke="url(#blueV)" stroke-width="6" stroke-linecap="round" filter="url(#strandGlow)" opacity="0.95"/>
+    <path d="M 263,126 C 270,185 244,248 252,310 C 260,372 248,405 258,440" fill="none" stroke="url(#blueV)" stroke-width="5" stroke-linecap="round" filter="url(#strandGlow)" opacity="0.85"/>
+    <path d="M 256,126 C 253,195 261,255 256,310 C 251,365 259,410 256,440" fill="none" stroke="url(#blueV)" stroke-width="4" stroke-linecap="round" filter="url(#strandGlow)" opacity="0.7"/>
+    <path d="M 256,126 C 236,200 276,260 244,330 C 230,370 274,410 256,445" fill="none" stroke="url(#tealS)" stroke-width="3" stroke-linecap="round" filter="url(#strandGlow)" opacity="0.55"/>
+    <path d="M 256,126 C 274,195 240,270 268,340 C 278,375 240,415 258,445" fill="none" stroke="url(#amberS)" stroke-width="2.5" stroke-linecap="round" filter="url(#strandGlow)" opacity="0.4"/>
+    <path d="M 70,115 C 50,97 35,82 28,57" fill="none" stroke="#3AAFFF" stroke-width="2" stroke-linecap="round" opacity="0.25"/>
+    <path d="M 442,117 C 460,102 472,85 478,59" fill="none" stroke="#3AAFFF" stroke-width="2" stroke-linecap="round" opacity="0.25"/>
+    <path d="M 55,106 C 38,88 30,66 35,44" fill="none" stroke="#2DD4A8" stroke-width="1.6" stroke-linecap="round" opacity="0.2"/>
+    <path d="M 455,142 C 468,152 478,169 482,184" fill="none" stroke="#D4A843" stroke-width="1.6" stroke-linecap="round" opacity="0.2"/>
+    <path d="M 256,440 C 248,455 240,465 230,475" fill="none" stroke="#3AAFFF" stroke-width="2" stroke-linecap="round" opacity="0.25"/>
+    <path d="M 258,440 C 265,458 275,468 285,475" fill="none" stroke="#2DD4A8" stroke-width="1.6" stroke-linecap="round" opacity="0.2"/>
+    <circle cx="256" cy="126" r="13" fill="url(#nodeG)" filter="url(#glowStrong)" opacity="0.9"/>
+    <circle cx="256" cy="126" r="5.5" fill="#FFFFFF" opacity="0.95"/>
+    <circle cx="98" cy="125" r="7" fill="url(#nodeG)" filter="url(#glow)" opacity="0.6"/>
+    <circle cx="98" cy="125" r="3" fill="#FFFFFF" opacity="0.8"/>
+    <circle cx="168" cy="122" r="8" fill="url(#nodeG)" filter="url(#glow)" opacity="0.7"/>
+    <circle cx="168" cy="122" r="3.5" fill="#FFFFFF" opacity="0.85"/>
+    <circle cx="344" cy="122" r="8" fill="url(#nodeG)" filter="url(#glow)" opacity="0.7"/>
+    <circle cx="344" cy="122" r="3.5" fill="#FFFFFF" opacity="0.85"/>
+    <circle cx="414" cy="124" r="7" fill="url(#nodeG)" filter="url(#glow)" opacity="0.6"/>
+    <circle cx="414" cy="124" r="3" fill="#FFFFFF" opacity="0.8"/>
+    <circle cx="256" cy="210" r="7.5" fill="url(#nodeG)" filter="url(#glow)" opacity="0.65"/>
+    <circle cx="256" cy="210" r="3" fill="#FFFFFF" opacity="0.8"/>
+    <circle cx="256" cy="310" r="8" fill="url(#nodeGreen)" filter="url(#glow)" opacity="0.6"/>
+    <circle cx="256" cy="310" r="3.5" fill="#FFFFFF" opacity="0.8"/>
+    <circle cx="256" cy="395" r="7" fill="url(#nodeG)" filter="url(#glow)" opacity="0.55"/>
+    <circle cx="256" cy="395" r="3" fill="#FFFFFF" opacity="0.75"/>
+    <circle cx="256" cy="440" r="6" fill="url(#nodeG)" filter="url(#glow)" opacity="0.5"/>
+    <circle cx="256" cy="440" r="2.5" fill="#FFFFFF" opacity="0.7"/>
+  </g>
+</svg>`;
+
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    const blob = new Blob([svgText], {type: 'image/svg+xml'});
+    const url = URL.createObjectURL(blob);
+    const img = new Image();
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0, 1024, 1024);
+      URL.revokeObjectURL(url);
+    };
+    img.src = url;
+
+    document.getElementById('btn').onclick = () => {
+      const link = document.createElement('a');
+      link.download = 'app_icon.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    };
+  </script>
+</body>
+</html>
