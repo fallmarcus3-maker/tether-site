@@ -77,6 +77,12 @@
       align-items: center;
       justify-content: space-between;
       height: 58px;
+      transition: box-shadow 0.3s, background 0.3s;
+    }
+
+    nav.nav-scrolled {
+      background: rgba(255,255,255,0.97);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
     }
 
     .nav-logo {
@@ -169,8 +175,39 @@
 
     .divider {
       border: none;
-      border-top: 1px solid var(--border);
+      height: 60px;
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 50%, var(--bg) 100%);
       margin: 0;
+    }
+
+    /* ─── SCROLL ANIMATIONS ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.96);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .reveal-left, .reveal-scale {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
     }
 
     /* ─── HERO ─── */
@@ -261,8 +298,12 @@
 
     .btn-primary:hover {
       background: var(--blue-dark);
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(59,92,245,0.35);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(59,92,245,0.4);
+    }
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 10px rgba(59,92,245,0.2);
     }
 
     .btn-ghost {
@@ -591,7 +632,8 @@
 
     .feature-card:hover {
       box-shadow: 0 6px 24px rgba(0,0,0,0.09);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      border-color: var(--blue);
     }
 
     .feature-icon-wrap {
@@ -968,6 +1010,79 @@
       padding: 0 1.4rem 1.1rem;
     }
 
+    /* ─── FINAL CTA ─── */
+    .cta-section {
+      background: linear-gradient(135deg, #1A1F2E 0%, #252B3D 50%, #1E2538 100%);
+      padding: 5.5rem 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 50%, rgba(59,92,245,0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 50%, rgba(99,102,241,0.06) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .cta-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .cta-section h2 {
+      color: #fff;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      line-height: 1.15;
+    }
+
+    .cta-section p {
+      color: rgba(255,255,255,0.6);
+      font-size: 1.05rem;
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+
+    .btn-cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.85rem 1.5rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.18);
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .btn-cta-secondary:hover {
+      background: rgba(255,255,255,0.18);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .cta-note {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+    }
+
     /* ─── FOOTER ─── */
     footer {
       border-top: 1px solid var(--border);
@@ -1087,22 +1202,22 @@
 
 <!-- STATS BAR -->
 <div class="stats-bar">
-  <div class="stat-card">
+  <div class="stat-card reveal">
     <div class="stat-value"><span>90</span>-day<br/>free trial</div>
     <div class="stat-label">Full access included. No credit card required to start.</div>
   </div>
-  <div class="stat-card">
+  <div class="stat-card reveal">
     <div class="stat-value">Trusted<br/><span>by pros</span></div>
     <div class="stat-label">Used by real trade crews. Direct feedback shapes every update.</div>
   </div>
-  <div class="stat-card">
+  <div class="stat-card reveal">
     <div class="stat-value"><span>6</span> core<br/>screens</div>
     <div class="stat-label">Office · Crew · Radar · Today · Jobs · Insights</div>
   </div>
 </div>
 
 <!-- WEB PORTAL CALLOUT -->
-<div style="max-width:1120px;margin:1.5rem auto 0;padding:0 1.5rem;">
+<div style="max-width:1120px;margin:1.5rem auto 0;padding:0 1.5rem;" class="reveal-scale">
   <div style="background:linear-gradient(135deg,var(--blue),#6366F1);border-radius:16px;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
     <div style="flex:1;min-width:240px;">
       <div style="font-size:0.85rem;font-weight:600;color:rgba(255,255,255,0.75);margin-bottom:0.25rem;">Not on Android?</div>
@@ -1118,23 +1233,23 @@
 
 <!-- PROBLEM -->
 <div class="section" id="problem">
-  <div class="section-header">
+  <div class="section-header reveal">
     <div class="section-label">The Problem</div>
     <h2>Your crew runs between the shop and the job site. Your tools don't.</h2>
     <p>Generic apps don't understand the difference between shop time and site time. You need a system built for how trade businesses actually work.</p>
   </div>
   <div class="problem-grid">
-    <div class="problem-card">
+    <div class="problem-card reveal">
       <div class="problem-icon">📲</div>
       <h3>"Who's where right now?"</h3>
       <p>You're calling or texting to find out if crew showed up and what job they're on. Every single day.</p>
     </div>
-    <div class="problem-card">
+    <div class="problem-card reveal">
       <div class="problem-icon">🕐</div>
       <h3>Timecard chaos at week's end</h3>
       <p>Hours logged on paper, in texts, or from memory. Disputes, missing entries, and payroll headaches every Friday.</p>
     </div>
-    <div class="problem-card">
+    <div class="problem-card reveal">
       <div class="problem-icon">🔁</div>
       <h3>Shop time and site time are different</h3>
       <p>A day in the shop building cabinets is nothing like a day on-site doing an install. Your scheduling tool should know the difference.</p>
@@ -1144,7 +1259,7 @@
 
 <!-- SAWDUST RULE -->
 <div style="max-width:1120px;margin:0 auto;padding:2rem 1.5rem;">
-  <div style="background:var(--surface);border:1px solid var(--border2);border-radius:18px;padding:2rem 2.5rem;box-shadow:0 2px 16px rgba(0,0,0,0.055);display:flex;align-items:center;gap:2rem;flex-wrap:wrap;">
+  <div class="reveal-left" style="background:var(--surface);border:1px solid var(--border2);border-radius:18px;padding:2rem 2.5rem;box-shadow:0 2px 16px rgba(0,0,0,0.055);display:flex;align-items:center;gap:2rem;flex-wrap:wrap;">
     <div style="flex:1;min-width:240px;">
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">Design Philosophy</div>
       <h3 style="font-size:1.35rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:0.4rem;">The Sawdust Rule</h3>
@@ -1162,13 +1277,13 @@
 
 <!-- FEATURES -->
 <div class="section" id="features">
-  <div class="section-header">
+  <div class="section-header reveal">
     <div class="section-label">Features</div>
     <h2>Everything in one place.<br/>Right from your phone.</h2>
   </div>
 
   <!-- Office AI -->
-  <div class="dispatch-card">
+  <div class="dispatch-card reveal-scale">
     <div>
       <div style="margin-bottom:0.75rem;"><span class="chip chip-purple">New · AI-Powered</span></div>
       <h3>Meet Office — your AI field assistant</h3>
@@ -1202,42 +1317,42 @@
   </div>
 
   <div class="feature-grid">
-    <div class="feature-card">
+    <div class="feature-card reveal">
       <div class="feature-icon-wrap" style="background:var(--blue-light);">
         <span style="font-size:1.2rem;">📍</span>
       </div>
       <h4>Radar — Live Crew Scheduling</h4>
       <p>See every crew member's schedule in a live week or month view. Assign jobs, spot gaps, and know who's where without a single call.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card reveal">
       <div class="feature-icon-wrap" style="background:var(--green-light);">
         <span style="font-size:1.2rem;">⏱️</span>
       </div>
       <h4>Punch Clock & Timecards</h4>
       <p>Crew clocks in and out from their phone. Timecards are automatic, accurate, and tied to specific jobs — ready for payroll without the Friday scramble.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card reveal">
       <div class="feature-icon-wrap" style="background:var(--amber-light);">
         <span style="font-size:1.2rem;">📋</span>
       </div>
       <h4>Jobs & Task Management</h4>
       <p>Build jobs with tasks, assign crew, and track progress in real time. Everyone knows what they're doing and where they need to be.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card reveal">
       <div class="feature-icon-wrap" style="background:var(--purple-light);">
         <span style="font-size:1.2rem;">📊</span>
       </div>
       <h4>Insights & Efficiency</h4>
       <p>See hours by job, crew utilization, and productivity trends over time. Make scheduling decisions based on data, not gut feel.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card reveal">
       <div class="feature-icon-wrap" style="background:var(--green-light);">
         <span style="font-size:1.2rem;">🔔</span>
       </div>
       <h4>Automated Briefings</h4>
       <p>Daily briefings, end-of-day summaries, weekly recaps, and quarterly reviews — all auto-generated and delivered on schedule. Toggle each one on or off.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card reveal">
       <div class="feature-icon-wrap" style="background:var(--blue-light);">
         <span style="font-size:1.2rem;">📅</span>
       </div>
@@ -1250,7 +1365,7 @@
 <!-- SCREENSHOTS -->
 <div class="screenshots-section">
   <div class="screenshots-inner">
-    <div class="section-header">
+    <div class="section-header reveal">
       <div class="section-label">The App</div>
       <h2>Built for the field, not a boardroom.</h2>
       <p>Every screen designed for fast, one-handed use on a job site.</p>
@@ -1299,22 +1414,22 @@
 
 <!-- HOW IT WORKS -->
 <div class="section" id="how-it-works">
-  <div class="section-header">
+  <div class="section-header reveal">
     <div class="section-label">How It Works</div>
     <h2>Set up in minutes.<br/>Running by end of day.</h2>
   </div>
   <div class="steps">
-    <div class="step">
+    <div class="step reveal">
       <div class="step-num">1</div>
       <h3>Create your account</h3>
       <p>Download the app, set up your business profile, and invite your crew. They download the free employee app and they're in.</p>
     </div>
-    <div class="step">
+    <div class="step reveal">
       <div class="step-num">2</div>
       <h3>Build your first job</h3>
       <p>Add a job, assign crew, set tasks. Takes about two minutes. Your team gets notified automatically.</p>
     </div>
-    <div class="step">
+    <div class="step reveal">
       <div class="step-num">3</div>
       <h3>Run your day from anywhere</h3>
       <p>Crew clocks in, Radar shows who's where, Office answers your questions. You're in control without being on-site.</p>
@@ -1324,28 +1439,28 @@
 
 <!-- EMPLOYEE EXPERIENCE -->
 <div class="section" id="employees">
-  <div class="section-header">
+  <div class="section-header reveal">
     <div class="section-label">For Your Crew</div>
     <h2>"Will my guys actually use it?"</h2>
     <p>The employee app is built for people who don't want another app. One tap to clock in. That's it.</p>
   </div>
 
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;max-width:900px;margin:0 auto;">
-    <div class="feature-card" style="text-align:center;">
+    <div class="feature-card reveal" style="text-align:center;">
       <div class="feature-icon-wrap" style="background:var(--green-light);margin:0 auto 0.75rem;">
         <span style="font-size:1.2rem;">👆</span>
       </div>
       <h4>One-tap punch clock</h4>
       <p>Open app, tap clock in. Done. No menus, no training, no complaints from the crew.</p>
     </div>
-    <div class="feature-card" style="text-align:center;">
+    <div class="feature-card reveal" style="text-align:center;">
       <div class="feature-icon-wrap" style="background:var(--blue-light);margin:0 auto 0.75rem;">
         <span style="font-size:1.2rem;">📋</span>
       </div>
       <h4>Daily task feed</h4>
       <p>Employees see today's jobs, tasks, and schedule. No guessing, no "where am I going?" texts.</p>
     </div>
-    <div class="feature-card" style="text-align:center;">
+    <div class="feature-card reveal" style="text-align:center;">
       <div class="feature-icon-wrap" style="background:var(--purple-light);margin:0 auto 0.75rem;">
         <span style="font-size:1.2rem;">🆓</span>
       </div>
@@ -1359,7 +1474,7 @@
 
 <!-- PRICING -->
 <div class="section" id="pricing">
-  <div class="section-header">
+  <div class="section-header reveal">
     <div class="section-label">Pricing</div>
     <h2>Simple, honest pricing.</h2>
     <p>Your crew downloads the app free. You pay only for the admin seat.</p>
@@ -1375,7 +1490,7 @@
   </div>
 
   <div class="pricing-grid">
-    <div class="pricing-card">
+    <div class="pricing-card reveal">
       <div class="plan-name">Solo</div>
       <div class="plan-price">
         <span class="price-amount" id="solo-price">$10</span>
@@ -1393,7 +1508,7 @@
       <a href="https://play.google.com/store/apps/details?id=com.getorganized.tether" target="_blank" class="plan-cta plan-cta-ghost">Get Started</a>
     </div>
 
-    <div class="pricing-card popular">
+    <div class="pricing-card popular reveal">
       <div class="popular-badge">Most Popular</div>
       <div class="plan-name">Crew</div>
       <div class="plan-price">
@@ -1414,7 +1529,7 @@
       <a href="https://play.google.com/store/apps/details?id=com.getorganized.tether" target="_blank" class="plan-cta plan-cta-primary">Get Started</a>
     </div>
 
-    <div class="pricing-card">
+    <div class="pricing-card reveal">
       <div class="plan-name">Enterprise</div>
       <div class="plan-price">
         <span class="price-amount" id="enterprise-price">$60</span>
@@ -1437,22 +1552,22 @@
 
 <!-- SOCIAL PROOF -->
 <div class="section" id="reviews">
-  <div class="section-header">
+  <div class="section-header reveal">
     <div class="section-label">Early Users</div>
     <h2>Built for people who actually run crews.</h2>
   </div>
   <div class="quotes-grid">
-    <div class="quote-card">
+    <div class="quote-card reveal">
       <div class="quote-stars">★★★★★</div>
       <p class="quote-text">"I used to spend the first 30 minutes of every morning just figuring out where everyone was. Now I open Tether and it's right there."</p>
       <div class="quote-author">— Beta user, general contractor, CA</div>
     </div>
-    <div class="quote-card">
+    <div class="quote-card reveal">
       <div class="quote-stars">★★★★★</div>
       <p class="quote-text">"The punch clock alone saved me hours on payroll. My guys actually use it because it's simple — that's the key."</p>
       <div class="quote-author">— Beta user, 4-person electrical crew</div>
     </div>
-    <div class="quote-card">
+    <div class="quote-card reveal">
       <div class="quote-stars">★★★★★</div>
       <p class="quote-text">"Office AI is genuinely useful. I asked it to show me who was still on the clock at 6pm and it answered immediately. That used to be three text messages."</p>
       <div class="quote-author">— Beta user, remodeling contractor</div>
@@ -1464,40 +1579,40 @@
 
 <!-- FAQ -->
 <div class="section" id="faq">
-  <div class="section-header">
+  <div class="section-header reveal">
     <div class="section-label">FAQ</div>
     <h2>Common questions.</h2>
   </div>
   <div class="faq-list">
-    <div class="faq-item">
+    <div class="faq-item reveal">
       <div class="faq-q">
         Is the app really free for my employees?
         <span class="faq-chevron">▼</span>
       </div>
       <div class="faq-a">Each plan includes employee seats up to the plan limit — Crew includes up to 5, Enterprise up to 10. Your crew downloads the Tether app for free; you're billed based on your plan tier. The 90-day free trial includes full access with up to 2 linked employees.</div>
     </div>
-    <div class="faq-item">
+    <div class="faq-item reveal">
       <div class="faq-q">
         What phones does Tether work on?
         <span class="faq-chevron">▼</span>
       </div>
       <div class="faq-a">Tether is currently available on Android. iOS support is in development. Both admin and employee apps are available on the Google Play Store.</div>
     </div>
-    <div class="faq-item">
+    <div class="faq-item reveal">
       <div class="faq-q">
         How does Radar scheduling work?
         <span class="faq-chevron">▼</span>
       </div>
       <div class="faq-a">Radar shows a week or month view of your crew's scheduled jobs. You can see who's assigned to what, spot scheduling gaps, and add new assignments directly from the calendar view.</div>
     </div>
-    <div class="faq-item">
+    <div class="faq-item reveal">
       <div class="faq-q">
         Can I export timecard data for payroll?
         <span class="faq-chevron">▼</span>
       </div>
       <div class="faq-a">Yes. Time entries are stored per employee per job and can be exported directly from the Timecard screen as Excel (.xlsx), CSV, or PDF — ready for payroll processing.</div>
     </div>
-    <div class="faq-item">
+    <div class="faq-item reveal">
       <div class="faq-q">
         What trades is Tether designed for?
         <span class="faq-chevron">▼</span>
@@ -1507,7 +1622,21 @@
   </div>
 </div>
 
-<hr class="divider" />
+<!-- FINAL CTA -->
+<div class="cta-section">
+  <div class="cta-inner reveal-scale">
+    <h2>Stop running your crew from memory.</h2>
+    <p>Join trade businesses using Tether to manage their crews, track time, and stay organized — all from one app.</p>
+    <div class="cta-actions">
+      <a href="https://play.google.com/store/apps/details?id=com.getorganized.tether" target="_blank" class="btn-primary">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.65.19.97.07l12.43-7.18-2.79-2.79-10.61 9.9zm-1.18-20.5v17.48c0 .42.23.78.58.99l10.04-10.04-10.04-10.04c-.35.21-.58.57-.58.99zm20.41 8.64l-2.9-1.68-3.12 3.12 3.12 3.12 2.93-1.69c.84-.48.84-1.6-.03-2.07zm-18.2-10.14l10.61 9.9 2.79-2.79-12.43-7.18c-.32-.12-.67-.1-.97.07z"/></svg>
+        Download on Google Play
+      </a>
+      <a href="/app/" class="btn-cta-secondary">Try the Web Portal</a>
+    </div>
+    <span class="cta-note">90-day free trial &middot; No credit card required</span>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -1546,7 +1675,8 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // Pricing toggle
+
+    // ─── PRICING TOGGLE ───
     let isAnnual = false;
     const prices = {
       monthly: { solo: '$10', crew: '$25', enterprise: '$60' },
@@ -1567,12 +1697,107 @@
       });
     }
 
-    // FAQ accordion
+    // ─── FAQ ACCORDION ───
     document.querySelectorAll('.faq-q').forEach(function (el) {
       el.addEventListener('click', function () {
         el.parentElement.classList.toggle('open');
       });
     });
+
+    // ─── SCROLL REVEAL (Intersection Observer) ───
+    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!prefersReduced) {
+      // Grid containers whose children should stagger
+      var staggerSelectors = [
+        '.stats-bar',
+        '.problem-grid',
+        '.feature-grid',
+        '.steps',
+        '.pricing-grid',
+        '.quotes-grid',
+        '.faq-list'
+      ];
+      var staggerParents = new Set();
+      staggerSelectors.forEach(function (sel) {
+        var el = document.querySelector(sel);
+        if (el) staggerParents.add(el);
+      });
+      // Also the employee grid (inline-styled, grab by parent section)
+      var empSection = document.getElementById('employees');
+      if (empSection) {
+        var empGrid = empSection.querySelector('[style*="display:grid"]');
+        if (empGrid) staggerParents.add(empGrid);
+      }
+
+      // Pre-compute stagger delays for children inside grid parents
+      staggerParents.forEach(function (parent) {
+        var children = parent.querySelectorAll('.reveal, .reveal-left, .reveal-scale');
+        children.forEach(function (child, i) {
+          child.style.transitionDelay = (i * 0.1) + 's';
+        });
+      });
+
+      // Observe all reveal elements
+      var revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-scale');
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      revealEls.forEach(function (el) {
+        observer.observe(el);
+      });
+    } else {
+      // Reduced motion: make everything visible immediately
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-scale').forEach(function (el) {
+        el.classList.add('visible');
+      });
+    }
+
+    // ─── NAV SCROLL SHADOW ───
+    var nav = document.querySelector('nav');
+    var scrollThreshold = 50;
+    var ticking = false;
+
+    function updateNav() {
+      if (window.scrollY > scrollThreshold) {
+        nav.classList.add('nav-scrolled');
+      } else {
+        nav.classList.remove('nav-scrolled');
+      }
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        requestAnimationFrame(updateNav);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Run once on load
+    updateNav();
+
+    // ─── SMOOTH SCROLL FOR NAV LINKS ───
+    document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        var target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
   });
 </script>
 </body>
