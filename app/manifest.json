@@ -1,0 +1,22 @@
+{
+    "name": "Tether",
+    "short_name": "Tether",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#E4E9EF",
+    "theme_color": "#3B5CF5",
+    "description": "Tether — schedule, track time, and run your crew.",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
