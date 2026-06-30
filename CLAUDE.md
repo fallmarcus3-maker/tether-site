@@ -1,101 +1,149 @@
 # Tether AI — Website Agent
 
-## What This Is
+> **Purpose:** marketing + landing site for Tether (`tetherapp.work`), hosted on
+> Cloudflare Pages. Single-file HTML, no build step. Flutter web portal at `/app/`.
 
-This is the marketing and landing site for **Tether**, a mobile-first workforce management app for small trade businesses (contractors, cabinet shops, landscapers, detailers). The site is a single-page HTML file hosted on **Cloudflare Pages** at **tetherapp.work**.
+## 0. Index
+1. [Workflow rules](#1-workflow-rules) — READ FIRST
+2. [Memory system](#2-memory-system)
+3. [Site architecture](#3-site-architecture)
+4. [The app (ground truth: sync from app repo)](#4-the-app-sync-from-app-repo--may-drift)
+5. [Deployment](#5-deployment)
+6. [Design language](#6-design-language)
 
-## Domain & Hosting
+---
 
-- **URL:** https://tetherapp.work/
-- **Host:** Cloudflare Pages (deployed via `wrangler pages`)
-- **DNS:** Cloudflare
-- **Files:** Static HTML/CSS/JS — no build step, no framework
+## 1. Workflow rules
 
-## File Structure
+### Deploy autonomy
+- **Auto-deploy** after content edits (copy, CSS tweaks, tag fixes).
+- **Ask first** for: new HTML pages, deleted pages, new JS / scripts / external deps,
+  web portal rebuild (Flutter `/app/` swap).
+- Command: `wrangler pages deploy . --project-name=tetherapp`
+
+### Verification (before saying "done")
+Preview server + screenshot + inspect critical elements. Use `preview_*` tools —
+never Bash or Chrome MCP for dev servers.
+
+### Git commits
+Only when Marcus says "commit". Never unprompted.
+
+### Scope
+Trivial fixes (<30s) while doing other work: just do it, mention in summary.
+Bigger tangential issues: flag, don't fix.
+
+### Subagents
+Use for >3 file reads or unclear scope. **Prefer Sonnet** — Haiku subagents have
+hallucinated false bugs in this project.
+
+### Cross-repo reads
+The Tether app repo (`C:\Users\Marcus\Documents\Tether\tether\`) is the **source
+of truth** for pricing, version, and feature copy. Read it when syncing site
+content with shipped features.
+
+### Response style
+Adaptive. Terse + bulleted for edits/ships. Narrative for design/architecture
+decisions. Lead with result. Don't restate the ask.
+
+### Editing this file (CLAUDE.md)
+Propose changes, wait for explicit approval. Never silently edit.
+
+### Memory↔reality conflicts
+If memory contradicts current code/files, **trust current state and
+silently refresh the memory file**, then proceed.
+
+---
+
+## 2. Memory system
+
+Location: `C:\Users\Marcus\.claude\projects\C--Users-Marcus-Documents-Claude-Tether-AI\memory\`
+Index: `MEMORY.md` (auto-loaded). Organization: **fine-grained — one file per
+concept**, indexed in `MEMORY.md`.
+
+### Save a new memory when
+- Marcus states a preference or corrects approach → **feedback** memory
+- Marcus mentions a new tool / account / dashboard / ID → **reference** memory
+- Marcus shares non-obvious business/project context → **project** memory
+- Marcus says "save" or "remember" → save immediately, type = best fit
+
+### Known external references (don't auto-expose; know they exist)
+- **RevenueCat** — subscription backend (mobile only)
+- **Mozaik / QuickBooks / ADP** — cabinet shop's existing software
+- **Cloudflare Pages** — site host (fallmarcus3@gmail.com acct)
+- **tetherapp.work** — domain, registered under a *different* Cloudflare account
+
+---
+
+## 3. Site architecture
 
 ```
-index.html          — Main landing page (single-file, self-contained CSS/JS)
-tether-site.html    — Backup/working copy of the site
+index.html          — Main landing page (self-contained CSS/JS)
+tether-site.html    — Working copy / backup (kept in sync)
 privacy.html        — Privacy policy
 terms.html          — Terms of service
-data-deletion.html  — Data deletion instructions (required by app stores)
-logo.png            — Tether logo (1173 KB, used in OG tags)
-images/             — Screenshot assets for the site
-social/             — Social media assets
-FEATURE_QUEUE.md    — Feature brief for The Queue (reference doc)
+data-deletion.html  — Data deletion (app store requirement)
+logo.png            — 2048x2048 app icon (also used as OG image — needs compression)
+favicon.png         — 32x32 favicon
+apple-touch-icon.png — 180x180 iOS icon
+images/             — App screenshots (JPGs, 1080x2400)
+app/                — Flutter web portal build (base href patched to /app/)
 ```
 
-## The App (What the Site Promotes)
+GitHub repo: https://github.com/fallmarcus3-maker/tether-site
 
-Tether is a Flutter/Dart mobile app with a Firebase backend. The full codebase lives at:
-```
-C:\Users\Marcus\Documents\Tether\tether\
-```
+---
 
-### Current Version: 1.7.5
+## 4. The app (sync from app repo — may drift)
 
-### What Tether Does
+**Version:** 2.7.0+42 (Google Play launched 2026-03-27)
+**Target:** Small trade businesses, 2–10 employees.
 
-- **Radar** — Monthly calendar with color-coded task buckets, drag-to-reschedule, week/day views
-- **Time Tracking** — Employee clock-in/out with lunch deduction, overtime, pay period summaries, QuickBooks IIF export
-- **Office AI** — Chat assistant (Gemini-powered) that can schedule tasks, query crew status, approve time-off, and manage jobs — by text or voice
-- **Proactive AI** — Morning briefs, end-of-day summaries, weekly digests, anomaly alerts (long clock-ins, overdue tasks, pending requests)
-- **Crew Management** — Employee linking via Employer ID, role-based access, task assignment
-- **Jobs & Templates** — Customer projects with address, notes, and reusable task-label templates
-- **The Queue** — Unscheduled task pool for downtime work (one-time or recurring)
-- **Home Screen Widgets** — iOS + Android native widgets showing clock-in status (employee) and crew overview (admin)
-- **Geofencing** — Soft geofence that flags clock-ins outside a configurable radius
-- **Google Calendar Sync** — Two-way sync with Google Calendar
-- **Notifications** — Bell/drawer system with per-type toggles (task notes, time edits, time off, join requests, payroll, location flags)
+Features: Radar, Time Tracking, Office AI (Gemini), Proactive AI (morning briefs,
+EOD, anomalies), Crew Management, Jobs & Templates, The Queue, Home Screen
+Widgets, Geofencing, Google Calendar Sync, Notifications. FCM push: Phase 1 code
+complete, not yet deployed.
 
-### Subscription Plans
+### Subscription plans
+| Plan | Monthly | Annual | Seats | AI Queries |
+|------|---------|--------|-------|-----------|
+| Solo | $10 | $8 | 0 (admin only) | 100/mo |
+| Crew | $25 | $20 | Up to 5 | 500/mo |
+| Enterprise | $60 | $48 | Up to 10 | Unlimited |
 
-| Plan | Price (monthly) | Price (annual) | Seats | AI Queries | Features |
-|------|----------------|---------------|-------|-----------|----------|
-| **Solo** | $10/mo | $8/mo | 0 (admin only) | 100/mo | Standard AI model |
-| **Crew** | $25/mo | $20/mo | Up to 5 | 500/mo | + Deep AI model, morning briefs, EOD, anomaly alerts |
-| **Enterprise** | $60/mo | $48/mo | Up to 10 | Unlimited | Everything in Crew |
+90-day free trial, no card. Billing mobile-only (RevenueCat).
 
-- **90-day free trial** — All features unlocked, 2 employee seats, 100 AI queries/mo
-- **No credit card required** for trial
-- Subscriptions managed via RevenueCat (App Store / Play Store only)
+**App Store links:**
+- Google Play: https://play.google.com/store/apps/details?id=com.getorganized.tether
+- Apple: build on TestFlight (2026-05-30, passed Apple's Xcode 26 / iOS 26 SDK
+  validation); on-device testing + App Store listing/metadata + submission
+  remain. Code is latest-Xcode-ready. iOS builds run via Codemagic (Mac CI).
 
-### App Store Links
+---
 
-- **Google Play:** https://play.google.com/store/apps/details?id=com.getorganized.tether
-- **Apple App Store:** (pending / add when available)
+## 5. Deployment
 
-### Target Audience
-
-Small trade businesses: contractors, cabinet shops, woodworkers, landscapers, auto detailers, cleaning crews, HVAC, plumbing, electrical. 2-10 employees. Owner runs the crew from their phone.
-
-## Web Portal (Coming Soon)
-
-A Flutter web build of the same app will be deployed alongside the marketing site. The web portal is:
-1. A **marketing funnel** — visitors can sign up and try Tether in the browser without downloading
-2. A **convenience layer** — existing subscribers access schedules and timecards from desktop
-
-**Billing stays mobile-only.** The web portal reads the same Firestore data, gated by the same subscription tier. "Tether is mobile-first — manage your subscription in the app."
-
-See `PLAN_web_portal.md` in the main Tether repo for the full implementation plan.
-
-## Design Language
-
-- **Fonts:** Inter (body), Inter Tight (headings), Roboto Mono (labels/tags)
-- **Colors:** Blue primary (`#3B5CF5`), green accent (`#22C55E`), purple secondary, dark navy text (`#1A1F2E`)
-- **Style:** Clean, professional, light background (`#EEF1F8`), white cards, subtle shadows, rounded corners (16px)
-- **Tone:** Direct, no-nonsense, trade-worker friendly. "Stop running your crew from memory."
-
-## Deployment
-
+### Marketing site
 ```bash
 cd "C:\Users\Marcus\Documents\Claude\Tether AI"
-wrangler pages deploy . --project-name=tether-site
+wrangler pages deploy . --project-name=tetherapp
 ```
 
-## When Updating the Site
+### Web portal (Flutter web at `/app/`)
+```bash
+cd "C:\Users\Marcus\Documents\Tether\tether"
+flutter build web --release    # no --base-href on Windows (SDK path has a space)
+cd "C:\Users\Marcus\Documents\Claude\Tether AI"
+rm -rf app/ && cp -r "C:\Users\Marcus\Documents\Tether\tether\build\web" ./app
+sed -i 's|<base href="/">|<base href="/app/">|' app/index.html    # CRITICAL
+wrangler pages deploy . --project-name=tetherapp
+```
 
-- Keep feature descriptions in sync with what's actually shipped in the app
-- Pricing must match `subscription_utils.dart` in the app repo
-- Screenshots in `images/` were extracted from screen recordings — update when UI changes significantly
-- The site is a single HTML file — no build step, just edit and deploy
+---
+
+## 6. Design language
+
+- Fonts: Inter (body + headings) — only font loaded in index.html.
+- Colors: `#3B5CF5` primary, `#6366F1` purple, `#22C55E` green, bg `#EEF1F8`,
+  surface `#FFFFFF`, dark text `#1A1F2E`.
+- Style: light theme, white cards, 16px radius, subtle shadows.
+- Tone: direct, trade-worker friendly. "Stop running your crew from memory."

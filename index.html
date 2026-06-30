@@ -15,7 +15,63 @@
   <meta name="twitter:title" content="Tether — Stop Running Your Crew From Memory" />
   <meta name="twitter:description" content="AI-powered scheduling and crew management for mobile trade businesses." />
   <link rel="icon" type="image/png" href="favicon.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the app really free for my employees?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Each plan includes employee seats up to the plan limit — Crew includes up to 5, Enterprise up to 10. Your crew downloads the Tether app for free; you're billed based on your plan tier. The 90-day free trial includes full access with up to 2 linked employees."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What phones does Tether work on?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tether is currently available on Android. iOS support is in development. Both admin and employee apps are available on the Google Play Store."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the Schedule work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Schedule shows a week or month view of your crew's scheduled jobs. You can see who's assigned to what, spot scheduling gaps, and add new assignments directly from the calendar view."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I export timecard data for payroll?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Time entries are stored per employee per job and can be exported directly from the Timecard screen as Excel (.xlsx), CSV, or PDF — ready for payroll processing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What trades is Tether designed for?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tether works for any business that manages a mobile field crew — general contractors, electricians, plumbers, landscapers, HVAC, painting, and more. If you're running people across job sites, Tether is built for you."
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <!-- Google Analytics (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-968WM5Y40R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-968WM5Y40R');
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -135,8 +191,71 @@
 
     .nav-cta:hover { background: var(--blue-dark) !important; }
 
+    /* Hamburger button — mobile only */
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.4rem;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.25s, opacity 0.2s;
+    }
+
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 58px;
+      left: 0;
+      right: 0;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      padding: 1.25rem 1.5rem;
+      z-index: 99;
+      flex-direction: column;
+      gap: 0.5rem;
+      transform: translateY(-10px);
+      opacity: 0;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .mobile-menu.open {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 0.7rem 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text2);
+      border-bottom: 1px solid var(--border2);
+      transition: color 0.15s;
+    }
+
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--blue); }
+
     @media (max-width: 600px) {
       .nav-links li:not(.nav-cta-item) { display: none; }
+      .nav-hamburger { display: flex; }
+      .mobile-menu { display: flex; }
     }
 
     /* ─── SHARED ─── */
@@ -201,6 +320,16 @@
       transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
     .reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+    /* Sawdust Rule hover */
+    .sawdust-card {
+      transition: box-shadow 0.2s, transform 0.15s;
+    }
+    .sawdust-card:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,0.09);
+      transform: translateY(-3px);
+      border-color: var(--blue);
+    }
 
     @media (prefers-reduced-motion: reduce) {
       .reveal, .reveal-left, .reveal-scale {
@@ -358,6 +487,28 @@
     .phone-frame img {
       width: 100%;
       display: block;
+    }
+
+    .phone-frame .hero-slides {
+      position: relative;
+      width: 100%;
+    }
+
+    .phone-frame .hero-slides img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .phone-frame .hero-slides img:first-child {
+      position: relative;
+    }
+
+    .phone-frame .hero-slides img.active {
+      opacity: 1;
     }
 
     /* ─── STATS BAR ─── */
@@ -601,6 +752,42 @@
       max-width: 90%;
     }
 
+    .chat-bubble-user,
+    .chat-bubble-ai {
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .chat-bubble-hidden {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    .typing-dots {
+      display: inline-flex;
+      gap: 4px;
+      padding: 0.6rem 0.9rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px 14px 14px 4px;
+      align-self: flex-start;
+    }
+
+    .typing-dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+      animation: typingBounce 1.2s infinite;
+    }
+
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+      30% { transform: translateY(-4px); opacity: 1; }
+    }
+
     .chat-input {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -697,6 +884,63 @@
       font-weight: 600;
       color: var(--muted);
       margin-top: 0.75rem;
+    }
+
+    .screenshots-wrap {
+      position: relative;
+    }
+
+    .screenshots-wrap::before,
+    .screenshots-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 60px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .screenshots-wrap::before {
+      left: 0;
+      background: linear-gradient(to right, var(--bg2), transparent);
+    }
+
+    .screenshots-wrap::after {
+      right: 0;
+      background: linear-gradient(to left, var(--bg2), transparent);
+    }
+
+    .scroll-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-60%);
+      z-index: 3;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text2);
+      font-size: 1.1rem;
+      transition: box-shadow 0.15s, transform 0.15s;
+    }
+
+    .scroll-arrow:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      transform: translateY(-60%) scale(1.08);
+    }
+
+    .scroll-arrow-left { left: 8px; }
+    .scroll-arrow-right { right: 8px; }
+
+    @media (max-width: 600px) {
+      .scroll-arrow { display: none; }
     }
 
     /* ─── HOW IT WORKS ─── */
@@ -847,6 +1091,13 @@
       color: var(--text);
       letter-spacing: -0.04em;
       line-height: 1;
+      display: inline-block;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .price-amount.price-flip {
+      transform: translateY(-8px);
+      opacity: 0;
     }
 
     .price-period {
@@ -1171,7 +1422,17 @@
     <li class="nav-cta-item"><a href="/app/" class="nav-cta" style="background:transparent;color:var(--blue);border:1.5px solid var(--blue);">Web Portal</a></li>
     <li class="nav-cta-item"><a href="https://play.google.com/store/apps/details?id=com.getorganized.tether" target="_blank" class="nav-cta">Get the App</a></li>
   </ul>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#features">Features</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#faq">FAQ</a>
+  <a href="/app/">Web Portal</a>
+  <a href="https://play.google.com/store/apps/details?id=com.getorganized.tether" target="_blank">Get the App</a>
+</div>
 
 <!-- HERO -->
 <div class="hero-wrap">
@@ -1195,7 +1456,11 @@
   <div class="phone-wrap">
     <div class="phone-frame">
       <div class="phone-notch"></div>
-      <img src="images/screen-today.jpg" alt="Tether Today screen" />
+      <div class="hero-slides" id="hero-slides">
+        <img src="images/screen-today.jpg" alt="Tether Today screen" class="active" />
+        <img src="images/screen-radar-month.jpg" alt="Tether Schedule screen" />
+        <img src="images/screen-officeai.jpg" alt="Tether Office AI screen" />
+      </div>
     </div>
   </div>
 </div>
@@ -1212,7 +1477,7 @@
   </div>
   <div class="stat-card reveal">
     <div class="stat-value"><span>6</span> core<br/>screens</div>
-    <div class="stat-label">Office · Crew · Radar · Today · Jobs · Insights</div>
+    <div class="stat-label">Office · Crew · Schedule · Today · Jobs · Insights</div>
   </div>
 </div>
 
@@ -1259,7 +1524,7 @@
 
 <!-- SAWDUST RULE -->
 <div style="max-width:1120px;margin:0 auto;padding:2rem 1.5rem;">
-  <div class="reveal-left" style="background:var(--surface);border:1px solid var(--border2);border-radius:18px;padding:2rem 2.5rem;box-shadow:0 2px 16px rgba(0,0,0,0.055);display:flex;align-items:center;gap:2rem;flex-wrap:wrap;">
+  <div class="reveal-left sawdust-card" style="background:var(--surface);border:1px solid var(--border2);border-radius:18px;padding:2rem 2.5rem;box-shadow:0 2px 16px rgba(0,0,0,0.055);display:flex;align-items:center;gap:2rem;flex-wrap:wrap;">
     <div style="flex:1;min-width:240px;">
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">Design Philosophy</div>
       <h3 style="font-size:1.35rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:0.4rem;">The Sawdust Rule</h3>
@@ -1305,10 +1570,10 @@
           <div class="chat-sub">Responding</div>
         </div>
       </div>
-      <div class="chat-bubble-user">Who hasn't clocked out yet?</div>
-      <div class="chat-bubble-ai">Jake and Carlos are still clocked in — Jake at Anderson Kitchen (7h 22m), Carlos at Westside (5h 48m).</div>
-      <div class="chat-bubble-user">How many hours total today?</div>
-      <div class="chat-bubble-ai">Your crew has logged <strong>24h 16m</strong> across 3 jobs today.</div>
+      <div class="chat-bubble-user chat-bubble-hidden" id="chat-msg-1">Who hasn't clocked out yet?</div>
+      <div class="chat-bubble-ai chat-bubble-hidden" id="chat-msg-2">Jake and Carlos are still clocked in — Jake at Anderson Kitchen (7h 22m), Carlos at Westside (5h 48m).</div>
+      <div class="chat-bubble-user chat-bubble-hidden" id="chat-msg-3">How many hours total today?</div>
+      <div class="chat-bubble-ai chat-bubble-hidden" id="chat-msg-4">Your crew has logged <strong>24h 16m</strong> across 3 jobs today.</div>
       <div class="chat-input">
         <span>Ask about your team or schedule...</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -1321,7 +1586,7 @@
       <div class="feature-icon-wrap" style="background:var(--blue-light);">
         <span style="font-size:1.2rem;">📍</span>
       </div>
-      <h4>Radar — Live Crew Scheduling</h4>
+      <h4>Schedule — Live Crew Scheduling</h4>
       <p>See every crew member's schedule in a live week or month view. Assign jobs, spot gaps, and know who's where without a single call.</p>
     </div>
     <div class="feature-card reveal">
@@ -1370,41 +1635,45 @@
       <h2>Built for the field, not a boardroom.</h2>
       <p>Every screen designed for fast, one-handed use on a job site.</p>
     </div>
-    <div class="screenshots-scroll">
-      <div class="screenshot-item">
-        <div class="phone-frame">
-          <div class="phone-notch"></div>
-          <img src="images/screen-today.jpg" alt="Today screen" />
+    <div class="screenshots-wrap">
+      <div class="scroll-arrow scroll-arrow-left" id="scroll-left">&#8249;</div>
+      <div class="scroll-arrow scroll-arrow-right" id="scroll-right">&#8250;</div>
+      <div class="screenshots-scroll" id="screenshots-scroll">
+        <div class="screenshot-item">
+          <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <img src="images/screen-today.jpg" alt="Today screen" />
+          </div>
+          <div class="screenshot-label">Today</div>
         </div>
-        <div class="screenshot-label">Today</div>
-      </div>
-      <div class="screenshot-item">
-        <div class="phone-frame">
-          <div class="phone-notch"></div>
-          <img src="images/screen-radar-month.jpg" alt="Radar screen" />
+        <div class="screenshot-item">
+          <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <img src="images/screen-radar-month.jpg" alt="Schedule screen" />
+          </div>
+          <div class="screenshot-label">Schedule</div>
         </div>
-        <div class="screenshot-label">Radar</div>
-      </div>
-      <div class="screenshot-item">
-        <div class="phone-frame">
-          <div class="phone-notch"></div>
-          <img src="images/screen-radar-week.jpg" alt="Week view" />
+        <div class="screenshot-item">
+          <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <img src="images/screen-office.jpg" alt="Office home and AI modes" />
+          </div>
+          <div class="screenshot-label">Office</div>
         </div>
-        <div class="screenshot-label">Week View</div>
-      </div>
-      <div class="screenshot-item">
-        <div class="phone-frame">
-          <div class="phone-notch"></div>
-          <img src="images/screen-office.jpg" alt="Office / Office AI" />
+        <div class="screenshot-item">
+          <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <img src="images/screen-officeai.jpg" alt="Office AI daily briefing" />
+          </div>
+          <div class="screenshot-label">Office AI</div>
         </div>
-        <div class="screenshot-label">Office · Office AI</div>
-      </div>
-      <div class="screenshot-item">
-        <div class="phone-frame">
-          <div class="phone-notch"></div>
-          <img src="images/screen-settings.jpg" alt="Settings" />
+        <div class="screenshot-item">
+          <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <img src="images/screen-vault.jpg" alt="Document Vault" />
+          </div>
+          <div class="screenshot-label">Vault</div>
         </div>
-        <div class="screenshot-label">Settings</div>
       </div>
     </div>
   </div>
@@ -1432,7 +1701,7 @@
     <div class="step reveal">
       <div class="step-num">3</div>
       <h3>Run your day from anywhere</h3>
-      <p>Crew clocks in, Radar shows who's where, Office answers your questions. You're in control without being on-site.</p>
+      <p>Crew clocks in, Schedule shows who's where, Office answers your questions. You're in control without being on-site.</p>
     </div>
   </div>
 </div>
@@ -1519,7 +1788,7 @@
       <ul class="plan-features">
         <li>1 admin seat</li>
         <li>Up to 5 employee seats included</li>
-        <li>Radar — live crew scheduling</li>
+        <li>Schedule — live crew scheduling</li>
         <li>Crew punch clock &amp; timecards</li>
         <li>Jobs, tasks &amp; scheduling</li>
         <li>Office AI assistant</li>
@@ -1539,7 +1808,12 @@
       <ul class="plan-features">
         <li>1 admin seat</li>
         <li>Up to 10 employee seats included</li>
-        <li>Everything in Crew</li>
+        <li>Schedule — live crew scheduling</li>
+        <li>Crew punch clock &amp; timecards</li>
+        <li>Jobs, tasks &amp; scheduling</li>
+        <li>Office AI — unlimited queries</li>
+        <li>Google Calendar sync</li>
+        <li>Insights &amp; efficiency metrics</li>
         <li>Priority support</li>
       </ul>
       <a href="https://play.google.com/store/apps/details?id=com.getorganized.tether" target="_blank" class="plan-cta plan-cta-ghost">Get Started</a>
@@ -1600,10 +1874,10 @@
     </div>
     <div class="faq-item reveal">
       <div class="faq-q">
-        How does Radar scheduling work?
+        How does the Schedule work?
         <span class="faq-chevron">▼</span>
       </div>
-      <div class="faq-a">Radar shows a week or month view of your crew's scheduled jobs. You can see who's assigned to what, spot scheduling gaps, and add new assignments directly from the calendar view.</div>
+      <div class="faq-a">Schedule shows a week or month view of your crew's scheduled jobs. You can see who's assigned to what, spot scheduling gaps, and add new assignments directly from the calendar view.</div>
     </div>
     <div class="faq-item reveal">
       <div class="faq-q">
@@ -1669,7 +1943,7 @@
         </div>
       </div>
     </div>
-    <div class="footer-bottom">© 2025 Tether. Built for the trades.</div>
+    <div class="footer-bottom">© 2025–2026 Tether. Built for the trades.</div>
   </div>
 </footer>
 
@@ -1680,7 +1954,7 @@
     let isAnnual = false;
     const prices = {
       monthly: { solo: '$10', crew: '$25', enterprise: '$60' },
-      annual:  { solo: '$8',  crew: '$20', enterprise: '$50' }
+      annual:  { solo: '$8',  crew: '$20', enterprise: '$48' }
     };
 
     const billingToggle = document.getElementById('billing-toggle');
@@ -1691,9 +1965,125 @@
         document.getElementById('annual-label').classList.toggle('active', isAnnual);
         billingToggle.classList.toggle('annual', isAnnual);
         const p = isAnnual ? prices.annual : prices.monthly;
-        document.getElementById('solo-price').textContent = p.solo;
-        document.getElementById('crew-price').textContent = p.crew;
-        document.getElementById('enterprise-price').textContent = p.enterprise;
+        var priceEls = [
+          document.getElementById('solo-price'),
+          document.getElementById('crew-price'),
+          document.getElementById('enterprise-price')
+        ];
+        var newPrices = [p.solo, p.crew, p.enterprise];
+        priceEls.forEach(function (el, i) {
+          el.classList.add('price-flip');
+          setTimeout(function () {
+            el.textContent = newPrices[i];
+            el.classList.remove('price-flip');
+          }, 200);
+        });
+      });
+    }
+
+    // ─── CHAT TYPING ANIMATION ───
+    var chatMockup = document.querySelector('.chat-mockup');
+    if (chatMockup && !prefersReduced) {
+      var chatMessages = [
+        { id: 'chat-msg-1', type: 'user' },
+        { id: 'chat-msg-2', type: 'ai' },
+        { id: 'chat-msg-3', type: 'user' },
+        { id: 'chat-msg-4', type: 'ai' }
+      ];
+      var chatAnimated = false;
+
+      function showTypingDots(parent, callback) {
+        var dots = document.createElement('div');
+        dots.className = 'typing-dots';
+        dots.innerHTML = '<span></span><span></span><span></span>';
+        parent.appendChild(dots);
+        setTimeout(function () {
+          dots.remove();
+          callback();
+        }, 1200);
+      }
+
+      function revealMessages(index) {
+        if (index >= chatMessages.length) return;
+        var msg = chatMessages[index];
+        var el = document.getElementById(msg.id);
+        if (!el) return;
+
+        if (msg.type === 'user') {
+          setTimeout(function () {
+            el.classList.remove('chat-bubble-hidden');
+            setTimeout(function () { revealMessages(index + 1); }, 600);
+          }, 400);
+        } else {
+          showTypingDots(chatMockup, function () {
+            el.classList.remove('chat-bubble-hidden');
+            // Reinsert input at end so it stays at the bottom
+            var chatInput = chatMockup.querySelector('.chat-input');
+            if (chatInput) chatMockup.appendChild(chatInput);
+            setTimeout(function () { revealMessages(index + 1); }, 800);
+          });
+          // Insert dots before the input
+          var chatInput = chatMockup.querySelector('.chat-input');
+          if (chatInput) chatMockup.insertBefore(chatMockup.querySelector('.typing-dots') || document.createElement('span'), chatInput);
+        }
+      }
+
+      var chatObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && !chatAnimated) {
+            chatAnimated = true;
+            chatObserver.unobserve(chatMockup);
+            setTimeout(function () { revealMessages(0); }, 500);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      chatObserver.observe(chatMockup);
+    } else if (prefersReduced) {
+      // Show all messages immediately
+      document.querySelectorAll('.chat-bubble-hidden').forEach(function (el) {
+        el.classList.remove('chat-bubble-hidden');
+      });
+    }
+
+    // ─── HERO PHONE CROSSFADE ───
+    var heroSlides = document.getElementById('hero-slides');
+    if (heroSlides) {
+      var slides = heroSlides.querySelectorAll('img');
+      var currentSlide = 0;
+      setInterval(function () {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+      }, 4000);
+    }
+
+    // ─── MOBILE HAMBURGER MENU ───
+    var hamburger = document.getElementById('nav-hamburger');
+    var mobileMenu = document.getElementById('mobile-menu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', function () {
+        hamburger.classList.toggle('open');
+        mobileMenu.classList.toggle('open');
+      });
+      mobileMenu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          hamburger.classList.remove('open');
+          mobileMenu.classList.remove('open');
+        });
+      });
+    }
+
+    // ─── SCREENSHOT SCROLL ARROWS ───
+    var scrollContainer = document.getElementById('screenshots-scroll');
+    var scrollLeftBtn = document.getElementById('scroll-left');
+    var scrollRightBtn = document.getElementById('scroll-right');
+    if (scrollContainer && scrollLeftBtn && scrollRightBtn) {
+      scrollLeftBtn.addEventListener('click', function () {
+        scrollContainer.scrollBy({ left: -220, behavior: 'smooth' });
+      });
+      scrollRightBtn.addEventListener('click', function () {
+        scrollContainer.scrollBy({ left: 220, behavior: 'smooth' });
       });
     }
 
@@ -1734,7 +2124,7 @@
       staggerParents.forEach(function (parent) {
         var children = parent.querySelectorAll('.reveal, .reveal-left, .reveal-scale');
         children.forEach(function (child, i) {
-          child.style.transitionDelay = (i * 0.1) + 's';
+          child.style.transitionDelay = (i * 0.15) + 's';
         });
       });
 

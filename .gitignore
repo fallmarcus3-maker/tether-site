@@ -4,3 +4,22 @@
 # OS files
 .DS_Store
 Thumbs.db
+
+# Cloudflare Wrangler local cache
+.wrangler/
+
+# Local-only ops + admin scripts (access codes, custom plans, ad-hoc invocations).
+# Document command shapes that grant special access tiers — keep out of git even
+# though they contain no secrets themselves; they're a recipe.
+*Custom Access Key*
+*custom_access_key*
+*custom-access-key*
+local-ops/
+
+# Not part of the public site — internal docs + dev assets. iOS signing keys
+# were relocated OUT of this repo entirely (to ../Tether-iOS-Keys). Keep these
+# out of git and the Cloudflare deploy.
+IOS Files/
+_logo-dev/
+FEATURE_QUEUE.md
+social/
