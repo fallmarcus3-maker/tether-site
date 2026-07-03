@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Features — Tether</title>
+  <meta name="description" content="Everything Tether does for a trade crew: Office AI briefings and answers, one-tap time tracking, live scheduling, the Queue, the Board, and a searchable Document Vault." />
+  <link rel="canonical" href="https://tetherapp.work/features.html" />
+  <meta property="og:title" content="Features — Tether" />
+  <meta property="og:description" content="Office AI, time tracking, live scheduling, the Queue, the Board, and a searchable Document Vault — built for trade crews." />
+  <meta property="og:url" content="https://tetherapp.work/features.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://tetherapp.work/logo.png" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <!-- Google Analytics (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-968WM5Y40R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-968WM5Y40R');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:        #3B5CF5;
+      --blue-dark:   #2D47D9;
+      --blue-light:  rgba(59,92,245,0.10);
+      --purple:      #6366F1;
+      --purple-light:rgba(99,102,241,0.12);
+      --green:       #22C55E;
+      --green-light: rgba(34,197,94,0.12);
+      --amber:       #F59E0B;
+      --amber-light: rgba(245,158,11,0.12);
+      --grad:        linear-gradient(120deg, #3B5CF5, #6366F1);
+
+      --navy-950: #0C111F;
+      --navy-900: #121829;
+      --navy-line: rgba(255,255,255,0.08);
+      --navy-text: rgba(255,255,255,0.66);
+      --navy-muted: rgba(255,255,255,0.42);
+
+      --bg:       #EEF1F8;
+      --surface:  #FFFFFF;
+      --surface2: #F5F7FC;
+      --border:   rgba(13,18,32,0.08);
+      --border2:  rgba(13,18,32,0.05);
+
+      --text:     #141927;
+      --text2:    #4A5164;
+      --muted:    #828CA0;
+
+      --radius: 16px;
+      --radius-lg: 22px;
+      --shadow-sm: 0 1px 3px rgba(13,18,32,0.05), 0 4px 14px rgba(13,18,32,0.05);
+      --shadow-md: 0 2px 6px rgba(13,18,32,0.05), 0 12px 32px rgba(13,18,32,0.08);
+      --maxw: 1140px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; }
+
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.8rem;
+    }
+
+    h1, h2, h3 { letter-spacing: -0.035em; }
+
+    .section-header { text-align: center; margin-bottom: 3.25rem; }
+    .section-header h2 {
+      font-size: clamp(1.95rem, 4.2vw, 2.9rem);
+      font-weight: 800;
+      line-height: 1.12;
+      margin-bottom: 0.75rem;
+    }
+    .section-header p {
+      font-size: 1.02rem;
+      color: var(--text2);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .band { padding: 6rem 0; }
+    .band-white { background: var(--surface); border-top: 1px solid var(--border2); border-bottom: 1px solid var(--border2); }
+    @media (max-width: 700px) { .band { padding: 4rem 0; } }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border2);
+      height: 62px;
+      transition: box-shadow 0.3s, background 0.3s;
+    }
+    nav.nav-scrolled {
+      background: rgba(255,255,255,0.97);
+      box-shadow: 0 2px 24px rgba(13,18,32,0.08);
+    }
+    .nav-inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 800;
+      font-size: 1.12rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      flex-shrink: 0;
+    }
+    .nav-logo img {
+      width: 32px; height: 32px;
+      border-radius: 9px;
+      object-fit: cover;
+      box-shadow: 0 2px 8px rgba(13,18,32,0.18);
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+      align-items: center;
+      margin: 0 auto;
+    }
+    .nav-links a {
+      font-size: 0.895rem;
+      font-weight: 500;
+      color: var(--text2);
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-actions { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
+    .nav-btn-ghost {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--blue);
+      border: 1.5px solid rgba(59,92,245,0.35);
+      padding: 0.45rem 0.95rem;
+      border-radius: 9px;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .nav-btn-ghost:hover { border-color: var(--blue); background: var(--blue-light); }
+    .nav-btn-solid {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #fff;
+      background: var(--blue);
+      padding: 0.5rem 1.05rem;
+      border-radius: 9px;
+      transition: background 0.15s;
+    }
+    .nav-btn-solid:hover { background: var(--blue-dark); }
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.4rem;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 20px; height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.25s, opacity 0.2s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 62px; left: 0; right: 0;
+      background: rgba(255,255,255,0.98);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 12px 32px rgba(13,18,32,0.12);
+      padding: 1.1rem 1.5rem 1.4rem;
+      z-index: 99;
+      flex-direction: column;
+      transform: translateY(-10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .mobile-menu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    .mobile-menu a {
+      display: block;
+      padding: 0.75rem 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text2);
+      border-bottom: 1px solid var(--border2);
+    }
+    .mobile-menu a:hover { color: var(--blue); }
+    .mobile-menu .mobile-menu-cta {
+      margin-top: 0.9rem;
+      background: var(--blue);
+      color: #fff;
+      text-align: center;
+      border-radius: 10px;
+      padding: 0.8rem;
+      border-bottom: none;
+    }
+    @media (max-width: 820px) {
+      .nav-links, .nav-actions { display: none; }
+      .nav-hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+    }
+
+    /* ─── PAGE HERO (compact dark) ─── */
+    .page-hero {
+      background:
+        radial-gradient(ellipse 60% 70% at 20% 0%, rgba(59,92,245,0.18), transparent 65%),
+        radial-gradient(ellipse 45% 60% at 85% 100%, rgba(99,102,241,0.13), transparent 65%),
+        linear-gradient(165deg, var(--navy-900), var(--navy-950));
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(ellipse 90% 100% at 50% 0%, #000 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 90% 100% at 50% 0%, #000 30%, transparent 80%);
+      pointer-events: none;
+    }
+    .page-hero-inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 4.25rem 1.5rem 4.5rem;
+      text-align: center;
+      position: relative;
+    }
+    .page-hero .eyebrow { color: #8CA0FF; }
+    .page-hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.06;
+      letter-spacing: -0.04em;
+      margin-bottom: 1rem;
+    }
+    .page-hero p {
+      color: var(--navy-text);
+      font-size: 1.06rem;
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.9rem 1.55rem;
+      border-radius: 12px;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+      box-shadow: 0 6px 24px rgba(59,92,245,0.35);
+    }
+    .btn-primary:hover {
+      background: var(--blue-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 36px rgba(59,92,245,0.45);
+    }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-outline-light {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.9rem 1.4rem;
+      border-radius: 12px;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .btn-outline-light:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.35); }
+
+    /* ─── CARDS / CHIPS ─── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+    .card-hover { transition: box-shadow 0.2s, transform 0.15s, border-color 0.2s; }
+    .card-hover:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+      border-color: rgba(59,92,245,0.4);
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.28rem 0.7rem;
+      border-radius: 100px;
+    }
+    .chip-blue   { background: var(--blue-light);   color: var(--blue);   }
+    .chip-green  { background: var(--green-light);  color: #16A34A;       }
+    .chip-purple { background: var(--purple-light); color: var(--purple); }
+
+    /* ─── OFFICE AI SPOTLIGHT ─── */
+    .office-card {
+      border-radius: var(--radius-lg);
+      padding: 2.75rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.5rem;
+    }
+    .office-card::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, rgba(99,102,241,0.14), transparent 68%);
+      pointer-events: none;
+    }
+    @media (max-width: 820px) {
+      .office-card { grid-template-columns: 1fr; padding: 1.75rem; gap: 1.75rem; }
+    }
+    .office-card h3 {
+      font-size: 1.7rem;
+      font-weight: 800;
+      margin-bottom: 0.65rem;
+      line-height: 1.18;
+    }
+    .office-card > div > p {
+      font-size: 0.92rem;
+      color: var(--text2);
+      line-height: 1.72;
+      margin-bottom: 1.35rem;
+    }
+    .office-prompts { display: flex; flex-direction: column; gap: 0.45rem; }
+    .office-prompt {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.58rem 0.95rem;
+      font-size: 0.81rem;
+      color: var(--text2);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .office-prompt::before {
+      content: '›';
+      color: var(--purple);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .chat-mockup {
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .chat-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .chat-avatar {
+      width: 32px; height: 32px;
+      border-radius: 10px;
+      background: var(--grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+    .chat-title { font-weight: 700; font-size: 0.875rem; }
+    .chat-sub {
+      font-size: 0.64rem;
+      color: var(--green);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .chat-bubble-user {
+      background: var(--blue);
+      color: #fff;
+      border-radius: 14px 14px 4px 14px;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.82rem;
+      align-self: flex-end;
+      max-width: 85%;
+    }
+    .chat-bubble-ai {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px 14px 14px 4px;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.82rem;
+      max-width: 90%;
+    }
+    .chat-input {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.55rem 1rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.25rem;
+    }
+
+    /* Office AI sub-cards */
+    .office-subgrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.25rem;
+    }
+    .office-sub {
+      padding: 1.6rem;
+    }
+    .office-sub h4 { font-size: 0.98rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .office-sub p { font-size: 0.84rem; color: var(--text2); line-height: 1.65; }
+    .office-sub .feature-icon-wrap { margin-bottom: 0.95rem; }
+
+    /* ─── DETAIL ROWS ─── */
+    .detail-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      padding: 3.5rem 0;
+    }
+    .detail-row + .detail-row { border-top: 1px solid var(--border2); }
+    @media (max-width: 820px) {
+      .detail-row { grid-template-columns: 1fr; gap: 2.25rem; padding: 2.5rem 0; }
+      .detail-row .detail-media { order: 2; }
+    }
+    .detail-row.flip .detail-media { order: -1; }
+    @media (max-width: 820px) { .detail-row.flip .detail-media { order: 2; } }
+
+    .detail-copy h3 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 0.7rem;
+      line-height: 1.2;
+    }
+    .detail-copy > p {
+      font-size: 0.93rem;
+      color: var(--text2);
+      line-height: 1.72;
+      margin-bottom: 1.15rem;
+    }
+    .detail-points { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .detail-points li {
+      font-size: 0.885rem;
+      color: var(--text2);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      line-height: 1.55;
+    }
+    .detail-points li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .detail-media { display: flex; justify-content: center; }
+
+    .phone-frame {
+      width: 230px;
+      border-radius: 40px;
+      border: 8px solid #141927;
+      background: #141927;
+      overflow: hidden;
+      box-shadow: 0 24px 48px rgba(13,18,32,0.18), 0 8px 20px rgba(13,18,32,0.1);
+      position: relative;
+      flex-shrink: 0;
+    }
+    .phone-notch {
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 84px; height: 22px;
+      background: #141927;
+      border-radius: 0 0 14px 14px;
+      z-index: 10;
+    }
+    .phone-frame img { width: 100%; display: block; }
+
+    /* ─── TOOLKIT GRID ─── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.25rem;
+    }
+    .feature-card { padding: 1.6rem; }
+    .feature-icon-wrap {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 0.95rem;
+    }
+    .feature-card h4 { font-size: 0.98rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .feature-card p { font-size: 0.84rem; color: var(--text2); line-height: 1.65; }
+
+    /* ─── CTA BAND + FOOTER ─── */
+    .site-end {
+      background:
+        radial-gradient(ellipse 55% 45% at 30% 10%, rgba(59,92,245,0.14), transparent 65%),
+        radial-gradient(ellipse 45% 45% at 78% 30%, rgba(99,102,241,0.1), transparent 65%),
+        linear-gradient(180deg, var(--navy-900), var(--navy-950));
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-inner {
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 5.5rem 1.5rem 4.5rem;
+      text-align: center;
+      position: relative;
+    }
+    .cta-inner h2 {
+      font-size: clamp(1.9rem, 4.2vw, 2.7rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.12;
+    }
+    .cta-inner p {
+      color: var(--navy-text);
+      font-size: 1.03rem;
+      margin-bottom: 2.1rem;
+      line-height: 1.7;
+    }
+    .cta-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.2rem;
+    }
+    .cta-note { font-size: 0.8rem; color: var(--navy-muted); }
+
+    footer { border-top: 1px solid var(--navy-line); position: relative; }
+    .footer-inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 2rem;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 820px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+    @media (max-width: 480px) { .footer-top { grid-template-columns: 1fr; } }
+    .footer-brand .nav-logo { color: #fff; margin-bottom: 0.9rem; }
+    .footer-brand p {
+      font-size: 0.84rem;
+      color: var(--navy-muted);
+      max-width: 250px;
+      line-height: 1.65;
+    }
+    .footer-col h5 {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--navy-muted);
+      margin-bottom: 0.9rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .footer-col li a {
+      font-size: 0.865rem;
+      color: var(--navy-text);
+      transition: color 0.15s;
+    }
+    .footer-col li a:hover { color: #fff; }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 0.76rem;
+      color: var(--navy-muted);
+      border-top: 1px solid var(--navy-line);
+      padding-top: 1.6rem;
+    }
+
+    /* ─── SCROLL ANIMATIONS ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.965);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .reveal-scale.visible { opacity: 1; transform: scale(1); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .reveal-scale {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="logo.png" alt="Tether" />
+      Tether
+    </a>
+    <ul class="nav-links">
+      <li><a href="features.html">Features</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="support.html">Support</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="/app/" class="nav-btn-ghost">Web Portal</a>
+      <a href="https://play.google.com/store/apps/details?id=com.getorganized.tether" target="_blank" rel="noopener" class="nav-btn-solid">Get the App</a>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="features.html">Features</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="support.html">Support</a>
+  <a href="/app/">Web Portal</a>
+  <a href="https://play.google.com/store/apps/details?id=com.getorganized.tether" target="_blank" rel="noopener" class="mobile-menu-cta">Get the App</a>
+</div>
+
+<!-- PAGE HERO -->
+<header class="page-hero">
+  <div class="page-hero-inner">
+    <div class="eyebrow">Features</div>
+    <h1>The whole business,<br/>in your pocket.</h1>
+    <p>Everything a small trade crew needs to run the day — and an AI office keeping an eye on all of it.</p>
+  </div>
+</header>
+
+<!-- OFFICE AI -->
+<section class="band band-white" id="office-ai">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="eyebrow">Office AI</div>
+      <h2>An AI office that actually knows your business.</h2>
+      <p>Office isn't a chatbot bolted on the side. It reads your live schedule, timecards, jobs, and documents — and briefs you before you ask.</p>
+    </div>
+
+    <div class="office-card reveal-scale">
+      <div>
+        <div style="margin-bottom:0.85rem;"><span class="chip chip-purple">Ask anything</span></div>
+        <h3>Ask it like you'd ask your office manager.</h3>
+        <p>Plain-English questions, live answers from your actual data — hours worked, active jobs, who's clocked in, what's in the Vault. No dashboards to dig through.</p>
+        <div class="office-prompts">
+          <div class="office-prompt">Who hasn't clocked out yet?</div>
+          <div class="office-prompt">What jobs are active right now?</div>
+          <div class="office-prompt">How many hours did Marcus log this week?</div>
+          <div class="office-prompt">Find the countertop spec in the Vault</div>
+        </div>
+      </div>
+      <div class="chat-mockup">
+        <div class="chat-header">
+          <div class="chat-avatar">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+          </div>
+          <div>
+            <div class="chat-title">Office</div>
+            <div class="chat-sub">Responding</div>
+          </div>
+        </div>
+        <div class="chat-bubble-user">Who hasn't clocked out yet?</div>
+        <div class="chat-bubble-ai">Jake and Carlos are still clocked in — Jake at Anderson Kitchen (7h 22m), Carlos at Westside (5h 48m).</div>
+        <div class="chat-bubble-user">How many hours total today?</div>
+        <div class="chat-bubble-ai">Your crew has logged <strong>24h 16m</strong> across 3 jobs today.</div>
+        <div class="chat-input">
+          <span>Ask about your team or schedule...</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="office-subgrid">
+      <div class="card card-hover office-sub reveal">
+        <div class="feature-icon-wrap" style="background:var(--blue-light);">🌅</div>
+        <h4>Morning &amp; end-of-day briefings</h4>
+        <p>Start the day knowing who's scheduled where and what's on deck. End it with what actually happened — hours logged, jobs touched, anything that looks off.</p>
+      </div>
+      <div class="card card-hover office-sub reveal">
+        <div class="feature-icon-wrap" style="background:var(--purple-light);">🎯</div>
+        <h4>Focused work modes</h4>
+        <p>Office switches into the mode for the job at hand — scheduling, documents, crew questions — so answers stay sharp instead of generic.</p>
+      </div>
+      <div class="card card-hover office-sub reveal">
+        <div class="feature-icon-wrap" style="background:var(--green-light);">🔎</div>
+        <h4>Live business data</h4>
+        <p>Every answer is pulled from your real schedule, timecards, jobs, and files at the moment you ask — not canned responses.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAIL ROWS -->
+<section class="band">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="eyebrow">Day to day</div>
+      <h2>The tools you'll touch every single day.</h2>
+    </div>
+
+    <div class="detail-row reveal">
+      <div class="detail-copy">
+        <div style="margin-bottom:0.75rem;"><span class="chip chip-green">Time Tracking</span></div>
+        <h3>One tap in. One tap out. Payroll's done.</h3>
+        <p>Your crew clocks in from their phone and every hour lands on the right job automatically. No paper, no texts, no Friday reconstruction project.</p>
+        <ul class="detail-points">
+          <li>One-tap punch clock tied to specific jobs</li>
+          <li>Shop time and site time, tracked as different things</li>
+          <li>Timecards export to Excel, CSV, or PDF for payroll</li>
+          <li>See who's on the clock right now, from anywhere</li>
+        </ul>
+      </div>
+      <div class="detail-media">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <img src="images/screen-today.jpg" alt="Tether Today screen with punch clock" loading="lazy" />
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-row flip reveal">
+      <div class="detail-copy">
+        <div style="margin-bottom:0.75rem;"><span class="chip chip-blue">Schedule</span></div>
+        <h3>A live view of who's on what.</h3>
+        <p>A week and month view of your crew's assignments — spot gaps, move work around, and let everyone see their own schedule instead of asking you.</p>
+        <ul class="detail-points">
+          <li>Week and month views of the whole crew</li>
+          <li>Assign jobs and tasks right from the calendar</li>
+          <li>Subscribe from Google Calendar, Apple Calendar, or Outlook</li>
+          <li>Crew sees their day in the app — no more "where am I going?"</li>
+        </ul>
+      </div>
+      <div class="detail-media">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <img src="images/screen-radar-month.jpg" alt="Tether Schedule month view" loading="lazy" />
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-row reveal">
+      <div class="detail-copy">
+        <div style="margin-bottom:0.75rem;"><span class="chip chip-purple">Document Vault</span></div>
+        <h3>Every spec, photo, and paper — findable.</h3>
+        <p>The Vault files your documents by job and customer, and it's searchable down to the text inside your files. The countertop spec from March? Two seconds.</p>
+        <ul class="detail-points">
+          <li>Filed by job and customer, not a junk drawer</li>
+          <li>Full-text search — including text inside documents</li>
+          <li>Job photos live with the job they belong to</li>
+          <li>Office AI can find and pull from Vault files for you</li>
+        </ul>
+      </div>
+      <div class="detail-media">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <img src="images/screen-vault.jpg" alt="Tether Document Vault" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLKIT GRID -->
+<section class="band band-white">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="eyebrow">The rest of the toolkit</div>
+      <h2>Built out. Not bolted on.</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="card card-hover feature-card reveal">
+        <div class="feature-icon-wrap" style="background:var(--blue-light);">👷</div>
+        <h4>Crew Management</h4>
+        <p>Invite your crew, set roles, and manage who sees what. Employees get the free app; you keep the controls.</p>
+      </div>
+      <div class="card card-hover feature-card reveal">
+        <div class="feature-icon-wrap" style="background:var(--amber-light);">📋</div>
+        <h4>Jobs &amp; Templates</h4>
+        <p>Build jobs with tasks and crew, or start from a template for the work you do again and again.</p>
+      </div>
+      <div class="card card-hover feature-card reveal">
+        <div class="feature-icon-wrap" style="background:var(--green-light);">📥</div>
+        <h4>The Queue</h4>
+        <p>An open pool of work waiting for hands. Drag a task onto a crew member and it's assigned — done.</p>
+      </div>
+      <div class="card card-hover feature-card reveal">
+        <div class="feature-icon-wrap" style="background:var(--purple-light);">📌</div>
+        <h4>The Board</h4>
+        <p>The shared surface for loose ends — notes, questions, reminders — that used to get lost in the group text.</p>
+      </div>
+      <div class="card card-hover feature-card reveal">
+        <div class="feature-icon-wrap" style="background:var(--blue-light);">📅</div>
+        <h4>Calendar Sync</h4>
+        <p>Your Tether schedule shows up in Google Calendar, Apple Calendar, or Outlook automatically.</p>
+      </div>
+      <div class="card card-hover feature-card reveal">
+        <div class="feature-icon-wrap" style="background:var(--green-light);">🔔</div>
+        <h4>Notifications &amp; Widgets</h4>
+        <p>Assignment alerts, schedule changes, and home-screen widgets that show the day at a glance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA + FOOTER -->
+<div class="site-end">
+  <div class="cta-inner reveal-scale">
+    <h2>See it with your own crew.</h2>
+    <p>Every plan starts with a 90-day free trial — full access, no credit card. If it doesn't stick, you've lost nothing.</p>
+    <div class="cta-actions">
+      <a href="https://play.google.com/store/apps/details?id=com.getorganized.tether" target="_blank" rel="noopener" class="btn-primary">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.3.17.65.19.97.07l12.43-7.18-2.79-2.79-10.61 9.9zm-1.18-20.5v17.48c0 .42.23.78.58.99l10.04-10.04-10.04-10.04c-.35.21-.58.57-.58.99zm20.41 8.64l-2.9-1.68-3.12 3.12 3.12 3.12 2.93-1.69c.84-.48.84-1.6-.03-2.07zm-18.2-10.14l10.61 9.9 2.79-2.79-12.43-7.18c-.32-.12-.67-.1-.97.07z"/></svg>
+        Get it on Google Play
+      </a>
+      <a href="pricing.html" class="btn-outline-light">See pricing</a>
+    </div>
+    <span class="cta-note">90-day free trial &middot; No credit card required</span>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="/" class="nav-logo">
+            <img src="logo.png" alt="Tether" />
+            Tether
+          </a>
+          <p>The command center for small trade crews. Built in a working cabinet shop, used on real job sites every day.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Product</h5>
+          <ul>
+            <li><a href="features.html">Features</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="/app/">Web Portal</a></li>
+            <li><a href="https://play.google.com/store/apps/details?id=com.getorganized.tether" target="_blank" rel="noopener">Download for Android</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Support</h5>
+          <ul>
+            <li><a href="support.html">Help &amp; Contact</a></li>
+            <li><a href="mailto:terry.tetherapp@gmail.com">terry.tetherapp@gmail.com</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Legal</h5>
+          <ul>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="data-deletion.html">Data Deletion</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025–2026 Tether. All rights reserved.</span>
+        <span>Built for the trades. 🔨</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ─── MOBILE HAMBURGER MENU ───
+    var hamburger = document.getElementById('nav-hamburger');
+    var mobileMenu = document.getElementById('mobile-menu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', function () {
+        var open = hamburger.classList.toggle('open');
+        mobileMenu.classList.toggle('open', open);
+        hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      mobileMenu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          hamburger.classList.remove('open');
+          mobileMenu.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    // ─── NAV SCROLL SHADOW ───
+    var nav = document.querySelector('nav');
+    var ticking = false;
+    function updateNav() {
+      nav.classList.toggle('nav-scrolled', window.scrollY > 50);
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { requestAnimationFrame(updateNav); ticking = true; }
+    }, { passive: true });
+    updateNav();
+
+    // ─── SCROLL REVEAL ───
+    if (!prefersReduced) {
+      var staggerSelectors = ['.office-subgrid', '.feature-grid'];
+      staggerSelectors.forEach(function (sel) {
+        var parent = document.querySelector(sel);
+        if (!parent) return;
+        parent.querySelectorAll('.reveal, .reveal-scale').forEach(function (child, i) {
+          child.style.transitionDelay = (i * 0.13) + 's';
+        });
+      });
+
+      var revealEls = document.querySelectorAll('.reveal, .reveal-scale');
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+      revealEls.forEach(function (el) { observer.observe(el); });
+    } else {
+      document.querySelectorAll('.reveal, .reveal-scale').forEach(function (el) {
+        el.classList.add('visible');
+      });
+    }
+
+  });
+</script>
+</body>
+</html>
