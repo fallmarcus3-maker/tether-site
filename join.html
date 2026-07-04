@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join your crew on Tether</title>
+  <meta name="description" content="Your crew runs on Tether. Grab the app and enter your crew code to join.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #EEF1F8;
+      color: #1A1F2E;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+    .card {
+      background: #FFFFFF;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(26, 31, 46, 0.08);
+      max-width: 420px;
+      width: 100%;
+      padding: 36px 28px 28px;
+      text-align: center;
+    }
+    .logo {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      margin: 0 auto 18px;
+      display: block;
+    }
+    h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .sub { font-size: 0.92rem; color: #5A6272; line-height: 1.5; margin-bottom: 22px; }
+    .code-box {
+      background: #EEF1F8;
+      border: 1.5px solid #D7DCEA;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      user-select: all;
+    }
+    .code-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+      color: #8A93A6; margin-bottom: 6px;
+    }
+    .code {
+      font-size: 2rem; font-weight: 800; letter-spacing: 0.18em;
+      color: #3B5CF5;
+    }
+    .copy-hint { font-size: 0.75rem; color: #8A93A6; margin-bottom: 22px; }
+    .copy-hint.copied { color: #22C55E; font-weight: 600; }
+    .steps { text-align: left; margin-bottom: 24px; }
+    .step { display: flex; gap: 12px; align-items: flex-start; padding: 8px 0; }
+    .step-num {
+      flex: none; width: 24px; height: 24px; border-radius: 50%;
+      background: #3B5CF5; color: #fff;
+      font-size: 0.78rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+    .step-text { font-size: 0.9rem; line-height: 1.45; color: #3A4254; }
+    .step-text strong { color: #1A1F2E; }
+    .store-btn {
+      display: block; width: 100%;
+      background: #3B5CF5; color: #fff;
+      border-radius: 12px; padding: 15px 20px;
+      font-size: 1rem; font-weight: 700;
+      text-decoration: none;
+      transition: background 0.15s ease;
+    }
+    .store-btn:hover { background: #2E4AD4; }
+    .store-note { font-size: 0.75rem; color: #8A93A6; margin-top: 12px; }
+    .no-code { display: none; }
+    body.missing-code .has-code { display: none; }
+    body.missing-code .no-code { display: block; }
+    footer { margin-top: 22px; font-size: 0.75rem; color: #8A93A6; }
+    footer a { color: #5A6272; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="logo.png" alt="Tether" class="logo">
+    <h1>Join your crew on Tether</h1>
+
+    <div class="has-code">
+      <p class="sub">Your boss set the crew up on Tether — schedules, time clock, and job info all live in one app. Here's your way in:</p>
+      <div class="code-box" id="codeBox" title="Tap to copy">
+        <div class="code-label">YOUR CREW CODE</div>
+        <div class="code" id="code">···-···</div>
+      </div>
+      <p class="copy-hint" id="copyHint">Tap the code to copy it</p>
+    </div>
+
+    <div class="no-code">
+      <p class="sub">Your boss set the crew up on Tether. Ask them for your 6-character crew code, then:</p>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Get the app</strong> from the store below.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text">Open it and tap <strong>"I'm joining a team."</strong></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text">Enter your crew code — <strong>you're in.</strong></div></div>
+    </div>
+
+    <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.getorganized.tether">Get Tether on Google Play</a>
+    <p class="store-note">On iPhone? The App Store version is on its way.</p>
+  </div>
+
+  <footer><a href="/">tetherapp.work</a></footer>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var raw = (params.get('c') || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+      if (raw.length !== 6) {
+        document.body.classList.add('missing-code');
+        return;
+      }
+      var pretty = raw.slice(0, 3) + '-' + raw.slice(3);
+      document.getElementById('code').textContent = pretty;
+      document.getElementById('codeBox').addEventListener('click', function () {
+        var hint = document.getElementById('copyHint');
+        function done() {
+          hint.textContent = 'Copied!';
+          hint.classList.add('copied');
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(pretty).then(done, function () {});
+        } else {
+          var range = document.createRange();
+          range.selectNodeContents(document.getElementById('code'));
+          var sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+          try { document.execCommand('copy'); done(); } catch (e) {}
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
